@@ -122,3 +122,111 @@ and we define
 !𝟘 : (A : 𝓤 ̇ ) → 𝟘 → A 
 !𝟘 = 𝟘-recursion   
 ```
+### The natural numbers ℕ 
+
+The definition is similar to Peano Axioms.
+
+```agda 
+data ℕ : 𝓤₀ ̇  where 
+    zero : ℕ
+    suc  : ℕ → ℕ
+
+{-# BUILTIN NATURAL ℕ #-}
+```
+
+The principle of mathematical induction for ℕ :
+```agda 
+ℕ-induction : (A : ℕ → 𝓤 ̇ ) → A 0 → ((n : ℕ) → A n → A (suc n)) → ((n : ℕ) → A n )
+ℕ-induction A a₀ f = h
+    where 
+        h : (n : ℕ ) → A n
+        h 0 = a₀ 
+        h (suc n) = f n (h n)
+```
+
+- A can be the proposition
+- a₀ : A 0 is the base case
+- `f = (n : ℕ) → A n → A (suc n)` is the induction step , mathematically means A n implies A (suc n), says how to get an element of the type A n by **primitive recursion**
+- ℕ-induction is exactly the dependently typed version of **primitive recursion** :
+
+```agda 
+ℕ-primitive-recursion : (X : 𝓤 ̇ ) → X → (ℕ → X → X) → ℕ → X 
+ℕ-primitive-recursion X = ℕ-induction (λ _ → X)
+```
+
+Now we define addition and multiplication.
+
+```agda
+module Arithmetic where
+    _+_ _×_ : ℕ → ℕ → ℕ
+    x + 0 = x 
+    x + suc y = suc (x + y)
+
+    x × 0 = 0
+    x × suc y = x + x × y
+
+    infixl 114 _+_
+    infixl 514 _×_
+```
+
+What about using ℕ-induction ? Introduce ℕ-iteration first : 
+
+```agda 
+ℕ-iteration : (X : 𝓤 ̇ )
+            → X
+            → (X → X)
+            → ℕ → X
+
+ℕ-iteration X x f = ℕ-primitive-recursion X x (λ _ x → f x)
+```
+
+Then we can define:
+
+```agda 
+module Arithmetic' where
+    _+_ _×_ : ℕ → ℕ → ℕ
+
+    infixl 114 _+_
+    infixl 514 _×_
+
+    x + y = h y
+        where
+            h : ℕ → ℕ
+            h = ℕ-iteration ℕ x suc 
+    
+    x × y = h y
+        where 
+            h : ℕ → ℕ
+            h = ℕ-iteration ℕ 0 (x +_)
+``` 
+
+#### Order
+Normal definition
+
+```agda 
+module ℕ-order where 
+    _≤_ _≥_ : ℕ → ℕ → 𝓤₀  ̇
+    0 ≤ y = 𝟙
+    suc y ≤ 0 = 𝟘 
+    suc x ≤ suc y = x ≤ y
+
+    x ≥ y = y ≤ x
+    
+    infixl 23 _≤_
+    infixl 23 _≥_
+```
+
+### Binary Sum Type
+We use the least upper bound of the universes to define disjoint sum:
+```
+data _+_ {𝓤 𝓥} (X : 𝓤 ̇ ) (Y : 𝓥 ̇ ) : 𝓤 ⊔ 𝓥 ̇  where
+    inl : X → X + Y
+    inr : Y → X + Y
+```
+
+Prove that a property A holds for all z : X + Y then A (inl x) for all x : X and A (inr y) for all y : Y (Also notice that pattern matching here)
+```
++-induction : {X : 𝓤  ̇} {Y : 𝓥 ̇ }  (A : X + Y → 𝓦 ̇ ) → ((x : X) → A (inl x)) → ((y : Y) → A (inr y)) → (z : X + Y ) → A z
++-induction A f g (inl x ) = f x 
++-induction A f g (inr y) = g y
+```

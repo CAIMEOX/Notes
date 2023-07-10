@@ -10,21 +10,28 @@ Homotopy type theory is a alternative foundation of Mathematics to Zermelo-Fraen
 - Another judgmental equality existing at the same level as the judgment "$x : A$". We write $a \equiv b :A$. It makes no sense to negate or assume judgment equal.
 - Definition of a function can be written as $f(x):\equiv x^2$
 
+## Context 
+To construct an element a of a type A is to derive $a:A$. Judgments are explicitly formulated in an ambient **context** , or list of assumptions , of the form :
+$$x_1:A_1 , x_2:A_2,\cdots , x_n:A_n$$
+An element $x_i:A_i$ expresses the assumption that the variable $x_i$ has type $A_i$ .
+
+The judgment $a:A$ in context $\Gamma$ is written:
+$$\Gamma \vdash a:A$$
+
+Use $\empty$ to denote the empty context.
+
+
 ## Function Types
 - We can construct type $f: A \to B$ of functions with domain A and codomain B. Given a function $f$ and an element $a :A$, we can apply the function to obtain an element of the codomain $B$, denoted $f(a)$.
 - How to construct ? $\lambda$-abstraction
-$$
-f(x):\equiv \Phi 
-$$
+    $$f(x):\equiv \Phi $$
     $\Phi$ may contains x as a variable, we have to check $\Phi:B$ assuming $x:A$.
     If we don't want to give a name, we can write down (the type can be omitted ) $\lambda$-abstraction: 
     $$(\lambda(x:A). \Phi):A\to B$$ or
     $$(x\mapsto\Phi):A\to B$$
     
 - Example:
-    $$
-        (\lambda(x:\mathbb{N}).\mathbb{x+x}):\mathbb{N} \to \mathbb{N}
-    $$
+    $$(\lambda(x:\mathbb{N}).\mathbb{x+x}):\mathbb{N} \to \mathbb{N} $$
 
 - $\beta$-reduction (computation rule): Apply it to $a:A$
     $$(\lambda x . \Phi) (a) \equiv \Phi ' $$
@@ -66,19 +73,13 @@ $$\lambda x.\Phi :\Pi _{(x:A)}B(x) $$
 - Functions which are **polymorphic** over a given universe. It takes a **type** as one of its arguments and then acts on elements of that type (or other type constructed from it ) An example is $\text{id} \Pi_{(A:\mathscr{U}) } :(A\to A)$
 
 - Another non-trivial example is swap operations that switches the order of the arguments of a (curried ) two-argument function:
-$$
-\text{swap} :\prod _{(A:\mathscr{U})}\prod _{(B:\mathscr{U})}\prod _{(C:\mathscr{U})} (A\to B\to C)\to (B\to A\to C)
-$$
+$$\text{swap} :\prod _{(A:\mathscr{U})}\prod _{(B:\mathscr{U})}\prod _{(C:\mathscr{U})} (A\to B\to C)\to (B\to A\to C)$$
 or use condense notation:
-$$
-\text{swap} :\prod _{A,B,C:\mathscr{U}} (A\to B\to C)\to (B\to A\to C)
-$$
-    we can define this by:
-$$
-\text{swap}(A,B,C,g) :\equiv \lambda b .\lambda a. g(a)(b) 
+$$\text{swap} :\prod _{A,B,C:\mathscr{U}} (A\to B\to C)\to (B\to A\to C)$$
+we can define this by:
+$$\text{swap}(A,B,C,g) :\equiv \lambda b .\lambda a. g(a)(b) 
 \\ \text{or use subscript: } \\ 
-\text{swap} _{A,B,C}(g)(b,a):\equiv g(a,b)
-$$
+\text{swap} _{A,B,C}(g)(b,a):\equiv g(a,b)$$
 - Note that as we did for ordinary functions. In the dependent case we can construct $\Pi _{(x:A)}\Pi_ {(y:B(x))} C(x,y)$
 
 ## Product types
@@ -89,4 +90,21 @@ To specify a type, we specify the following rules:
 - Introduction rule (How to construct elements) : For example a function type has one **constructor** $\lambda$-abstraction.
 - Computation rule (How to use elements) : For example the function type has one **eliminator** function application.
 - Computation rule (How eliminator acts on constructor ) 
-- (Optional) uniqueness principle: express uniqueness of maps into or out of the type 
+- (Optional) uniqueness principle: express uniqueness of maps into or out of the type.
+
+Let's construct the product type:
+- Form and Introduction: Given $a:A$ and $b:B$ we can form $(a,b):A \times B$. 
+- Uniqueness principle (Not a rule , prove later): We expect that every element of $A\times B$ is a pair.
+- Computation: 
+  - Construct non-dependent function $f:A\times B\to C$.
+  - Introduce a new rule (Elimination Rule) : For any $g:A\to B\to C$ we can define a function $f:A\times B\to C$ by $f((a,b)) :\equiv g(a)(b)$. Reversely to set theory, we assume that a function on $A\times B$ is well-defined as soon as we specify its values on pairs, and form this we will able to prove that every element of $A\times B$ is a pair.
+- Projection functions: $$\text{pr}_1:A\times B \to A \\\text{pr}_2:A\times B \to B$$ with the defining equations: $$\text{pr}_1((a,b)) :\equiv a \\ \text{pr}_2((a,b)) :\equiv b$$
+- Alternative approach by recursor(Product types are a degenerate example of a general framework for **inductive types**): $$\text{rec}_{A\times B}:\prod_{C:\mathscr{U} } (A\to B \to C) \to A\times B \to C$$ with the defining equation: $$\text{rec}_{A\times B}(C, g, (a,b)) :\equiv g(a)(b) $$
+- Hence we can define pr by: $$\text{pr}_1 :\equiv rec_{A\times B} (A, \lambda a. \lambda b. a) \\\text{pr}_2:\equiv rec_{A\times B} (A, \lambda a. \lambda b. b)$$
+
+### Generalize the recursor
+Given $C:A\times B \to \mathscr{U}$ we can define a function $f:\prod_{(x:A\times B)} C(x)$ by $g:\prod_{(x:A)}\prod_{(y:B)}C((x,y))$ with defining equation $$f((x,y)):\equiv g(x)(y)$$
+
+Prove the propositional uniqueness principle: Every element of $A\times B$ is equal to a pair. $$\text{uniq}_{A\times B}:\prod_{x:A\times B} ((\text{pr}_1(x),\text{pr}_2(x)) =_{A\times B} x$$ (Used the identity type. There is a reflexivity element $\text{refl}_x:x=_A x $ for any $x:A$) 
+
+So we can define: $$\text{uniq}_{A\times B}((a,b)):\equiv \text{refl}_{(a,b)}$$

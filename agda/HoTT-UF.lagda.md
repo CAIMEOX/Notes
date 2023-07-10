@@ -229,4 +229,29 @@ Prove that a property A holds for all z : X + Y then A (inl x) for all x : X and
 +-induction : {X : 𝓤  ̇} {Y : 𝓥 ̇ }  (A : X + Y → 𝓦 ̇ ) → ((x : X) → A (inl x)) → ((y : Y) → A (inr y)) → (z : X + Y ) → A z
 +-induction A f g (inl x ) = f x 
 +-induction A f g (inr y) = g y
+
++-recursion :  {X : 𝓤  ̇ } {Y : 𝓥  ̇  } {A : 𝓦 ̇ } → (X → A) → (Y → A) → X + Y → A 
++-recursion {𝓤} {𝓥} {𝓦} {X} {Y} {A} = +-induction ( λ _ → A )
 ```
+
+If A and B are statements , the type A + B is the statement "A or B". If we care about the truth value , we use the truncation || A + B || 
+
+We can define the two-point type:
+```
+𝟚 : 𝓤₀ ̇ 
+𝟚 = 𝟙 + 𝟙
+```
+
+We can name the left and right points using patterns :
+```
+pattern ₀ = inl ⋆ 
+pattern ₁ = inr ⋆ 
+```
+
+The 𝟚-induction:
+```
+𝟚-induction : (A : 𝟚 → 𝓤 ̇ ) → A ₀ → A ₁ → (n : 𝟚 ) → A n 
+𝟚-induction A a₀ a₁ ₀ = a₀
+𝟚-induction A a₀ a₁ ₁ = a₁
+ ```
+

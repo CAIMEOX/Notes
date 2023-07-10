@@ -1,5 +1,10 @@
 # TypeTheory
 Type Theory and ITP notes
 
-## Note 1
-[HoTT-UF](./HoTT-UF.lagda.md)
+## Type Theory Notes
+[Type Theory](./tt/type_theory.md)
+
+## Agda Notes
+[HoTT-UF](./agda/HoTT-UF.lagda.md)
+
+## Category Theory

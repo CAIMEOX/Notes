@@ -1,6 +1,4 @@
 ## Getting started with Agda
-
-> This note is based on Lecture: Introduction to Univalent Foundations of Mathematics with Agda
  
 ```agda
 {-# OPTIONS --without-K --exact-split --safe --auto-inline #-}

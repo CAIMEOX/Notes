@@ -8,3 +8,11 @@ Type Theory and ITP notes
 [HoTT-UF](./agda/HoTT-UF.lagda.md)
 
 ## Category Theory
+
+
+## References
+- Stanford Encyclopedia of Philosophy
+  - Intuitionistic Type Theory
+- Homotopy Type Theory 
+-  Introduction to Univalent Foundations of Mathematics with Agda
+-  Topoi : The Categorical Analysis of Logic

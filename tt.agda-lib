@@ -1,0 +1,3 @@
+name: tt
+depend: standard-library
+include: agda

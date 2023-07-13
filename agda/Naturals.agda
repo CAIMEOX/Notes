@@ -83,6 +83,10 @@ infixl 8 _^_
 +-Identity' 0 = refl
 +-Identity' (suc n)  rewrite +-Identity' n = refl
 
+*-Identity : ∀ (m : ℕ) →  m * 0 ≡ 0
+*-Identity 0 = refl
+*-Identity (suc m) rewrite *-Identity m = refl
+
 -- (Right) successor
 +-suc : ∀ (m n : ℕ) → m + suc  n ≡ suc (m + n)
 +-suc zero n = 
@@ -107,6 +111,8 @@ infixl 8 _^_
 +-suc' : ∀ (m n : ℕ) → m + suc  n ≡ suc (m + n)
 +-suc' 0 n = refl
 +-suc' (suc m) n  rewrite +-suc' m n = refl
+
+
 
 -- Commutativity
 +-comm : ∀ (m n : ℕ) → m + n ≡ n + m
@@ -133,6 +139,15 @@ infixl 8 _^_
 +-comm' m 0 rewrite +-Identity m = refl
 +-comm' m (suc n) rewrite +-suc m n | +-comm m n = refl
 
+*-suc : ∀ (m n : ℕ) → m * suc  n ≡ m + (m * n)
+*-suc 0 n = refl
+*-suc (suc m) n  
+    rewrite *-suc m n 
+    |  *-suc m n 
+    | sym (+-assoc n m (m * n))
+    | sym (+-comm m n)
+    | +-assoc m n (m * n)  = refl
+
 -- Rearrange
 +-rearrange : ∀ (m n p q : ℕ) → (m + n) + (p + q) ≡ m + (n + p) + q
 +-rearrange m n p q =
@@ -145,3 +160,28 @@ infixl 8 _^_
         (m + (n + p)) + q
     ∎
 
++-swap : ∀ (m n p : ℕ) → m + (n + p) ≡ n + (m + p)
++-swap m n p 
+    rewrite sym (+-assoc m n p ) 
+    | +-comm m n 
+    | +-assoc n m p = refl
+
+*-distribute-+ : ∀ (m n p : ℕ) → (m + n) * p ≡ m * p + n * p
+*-distribute-+ zero n p = refl
+*-distribute-+ (suc m) n p 
+    rewrite *-distribute-+ m n p 
+    | sym ( +-assoc p (m * p) (n * p))= refl
+  
+
+*-assoc : ∀ (m n p : ℕ) → (m * n) * p ≡ m * (n * p)
+*-assoc zero n p = refl
+*-assoc (suc m) n p 
+    rewrite *-assoc m m p
+    | *-distribute-+ n (m * n) p
+    |  cong (_+_ (n * p)) (*-assoc m n p)= refl 
+
+*-comm : ∀ (m n : ℕ) → m * n ≡ n * m 
+*-comm zero n rewrite *-Identity n = refl
+*-comm (suc m) n 
+    rewrite (*-comm m n)
+    | sym (*-suc n m) = refl

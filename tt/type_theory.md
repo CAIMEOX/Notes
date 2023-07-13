@@ -44,7 +44,7 @@ Use $\cdot$ to denote the empty context.
     $$(x\mapsto\Phi):A\to B$$
     
 - Example:
-    $$(\lambda(x:\mathbb{N}).\mathbb{x+x}):\mathbb{N} \to \mathbb{N} $$
+    $$(\lambda(x:\mathbb{N}).x+x):\mathbb{N} \to \mathbb{N} $$
 
 - $\beta$-reduction (computation rule): Apply it to $a:A$
     $$(\lambda x . \Phi) (a) \equiv \Phi ' $$

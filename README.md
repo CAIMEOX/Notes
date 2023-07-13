@@ -1,5 +1,6 @@
-# TypeTheory
-Type Theory and ITP notes
+# Type Theory
+Type Theory and ITP notes. (Also include some abstract math)
+> Currently working on Category Notes
 
 ## Type Theory Notes
 [Type Theory](./tt/type_theory.md)
@@ -8,7 +9,8 @@ Type Theory and ITP notes
 [HoTT-UF](./agda/HoTT-UF.lagda.md)
 
 ## Category Theory
-
+[Set Theory](/cat/set_theory.md)
+[Categories](/cat/cartegories.md)
 
 ## References
 - Stanford Encyclopedia of Philosophy

@@ -10,7 +10,10 @@ Type Theory and ITP notes. (Also include some abstract math)
 
 ## Category Theory
 [Set Theory](/cat/set_theory.md)
+
 [Categories](/cat/cartegories.md)
+
+[Arrows](/cat/arrows.md)
 
 ## References
 - Stanford Encyclopedia of Philosophy

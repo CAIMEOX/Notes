@@ -303,7 +303,7 @@ data odd where
 
 e+e≡e : ∀ {m n : ℕ} → even m → even n → even (m + n) 
 o+e≡o : ∀ {m n : ℕ} → odd m → even n → odd (m + n)
-
+-- o+o≡e : ∀ {m n : ℕ} → odd m → odd n → even (m + n)
 e+e≡e zero n = n
 e+e≡e (suc m) n = suc (o+e≡o m n)
 o+e≡o (suc m) n = suc (e+e≡e m n)

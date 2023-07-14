@@ -185,3 +185,126 @@ infixl 8 _^_
 *-comm (suc m) n 
     rewrite (*-comm m n)
     | sym (*-suc n m) = refl
+
+-- Relations
+data _≤_ : ℕ → ℕ → Set where
+    -- Bracket {} means implicit arguments
+    z≤n : ∀ {n : ℕ} → zero ≤ n
+    s≤s : ∀ {m n : ℕ} → m ≤ n → suc m ≤ suc n
+
+infixl 4 _≤_
+
+-- Invert the rule
+inv-z≤n : ∀ {m : ℕ} → m ≤ 0 → m ≡ 0
+inv-z≤n {m} z≤n = refl
+
+inv-s≤s : ∀ {m n : ℕ} → suc m ≤ suc n → m ≤ n
+inv-s≤s (s≤s m≤n) = m≤n
+
+-- Reflexivity
+≤-refl : ∀ {n : ℕ} → n ≤ n
+≤-refl {0} = z≤n
+≤-refl {suc n} = s≤s ≤-refl 
+
+-- Transitivity
+≤-trans : ∀ {m n p : ℕ} → m ≤ n → n ≤ p → m ≤ p
+≤-trans z≤n _ = z≤n
+≤-trans (s≤s m≤n) (s≤s n≤p) = s≤s (≤-trans m≤n n≤p)
+
+-- Antisymmetry
+≤-antisym : ∀ {m n : ℕ} → m ≤ n → n ≤ m → n ≡ m
+≤-antisym z≤n z≤n = refl
+≤-antisym (s≤s m≤n) (s≤s n≤m) = cong suc (≤-antisym m≤n n≤m)
+
+data Total : ℕ → ℕ → Set where
+    forward : ∀ {m n : ℕ} → m ≤ n → Total m n
+    flipped : ∀ {m n : ℕ} → n ≤ m → Total m n
+
+data Total' (m n : ℕ) : Set where
+    forward : m ≤ n → Total' m n
+    flipped : n ≤ m → Total' m n
+
+-- May use disjunction here
+
+≤-total : ∀ (m  n : ℕ) → Total m n
+≤-total 0 n = forward z≤n
+≤-total n 0 = flipped z≤n
+≤-total (suc m) (suc n) with ≤-total m n
+...    | forward m≤n = forward (s≤s m≤n)
+...    | flipped n≤m = flipped (s≤s n≤m) 
+
+-- Helper function
+≤-total' : ∀ (m  n : ℕ) → Total m n
+≤-total' 0 n = forward z≤n
+≤-total' n 0 = flipped z≤n
+≤-total' (suc m) (suc n) = h (≤-total' m n) where
+    h : Total m n → Total (suc m) (suc n)
+    h (forward m≤n) = forward (s≤s m≤n)
+    h (flipped n≤m) = flipped (s≤s n≤m)
+    
+-- Monotonic over Addition
++-mono_right-≤ : ∀ (n p q : ℕ) → p ≤ q → n + p ≤ n + q
++-mono_right-≤ 0 p q p≤q = p≤q
++-mono_right-≤ (suc n) p q p≤q = s≤s (+-mono_right-≤ n p q p≤q)
+
++-mono_left-≤ : ∀ (n p q : ℕ) → p ≤ q → p + n ≤ q + n
++-mono_left-≤ n p q p≤q rewrite +-comm p n | +-comm q n =  +-mono_right-≤ n p q p≤q
+
++-mono-≤ : ∀ (m n p q : ℕ) → m ≤ n → p ≤ q → m + p ≤ n + q
++-mono-≤ m n p q m≤n p≤q = ≤-trans (+-mono_left-≤ p m n m≤n) (+-mono_right-≤ n p q p≤q) 
+
+-- Monotonic over Multiplication
+*-mono_right-≤ : ∀ (n p q : ℕ) → p ≤ q → n * p ≤ n * q
+*-mono_right-≤ 0 p q p≤q = z≤n
+*-mono_right-≤ (suc n) p q p≤q = +-mono-≤ p q (n * p) (n * q) p≤q (*-mono_right-≤ n p q p≤q) 
+
+*-mono_left-≤ : ∀ (n p q : ℕ) → p ≤ q → p * n ≤ q * n
+*-mono_left-≤ n p q p≤q rewrite *-comm p n | *-comm q n = *-mono_right-≤ n p q p≤q 
+
+*-mono-≤ : ∀ (m n p q : ℕ) → m ≤ n → p ≤ q → m * p ≤ n * q
+*-mono-≤ m n p q m≤n p≤q = ≤-trans (*-mono_left-≤ p m n m≤n) (*-mono_right-≤ n p q p≤q)
+
+data _<_ : ℕ → ℕ → Set where
+    z<s : ∀ {n : ℕ} → 0 < n
+    s<s : ∀ {m n : ℕ} → m < n → suc m < suc n
+
+infixl 4 _<_ 
+
+-- Transitive
+<-trans : ∀ {m n p : ℕ} → m < n → n < p → m < p
+<-trans z<s _ = z<s
+<-trans (s<s x) (s<s y)= s<s (<-trans x y) 
+
+-- Trichotomy
+data Trichotomy : ℕ → ℕ → Set where
+    forward : ∀ {m n : ℕ} → m < n → Trichotomy m n
+    equal : ∀ {m n : ℕ} → m ≡ n → Trichotomy m n
+    flipped : ∀ {m n : ℕ} → n < m → Trichotomy m n
+
+<-trichotomy : ∀ (m n : ℕ) → Trichotomy m n
+<-trichotomy 0 n = forward z<s
+<-trichotomy n 0 = flipped z<s
+<-trichotomy (suc m) (suc n) = h (<-trichotomy m n) where
+    h : Trichotomy m n → Trichotomy (suc m) (suc n)
+    h (forward m<n) = forward (s<s m<n)
+    h (flipped n<m) = flipped (s<s n<m)
+    h (equal n≡m) = equal (cong suc n≡m) 
+
+-- Predicate
+data even : ℕ → Set
+data odd  : ℕ → Set 
+
+data even where
+    zero : even zero
+    suc : ∀ {n : ℕ} → odd n → even (suc n)
+
+data odd where
+    suc : ∀ {n : ℕ} → even n → odd (suc n)
+
+e+e≡e : ∀ {m n : ℕ} → even m → even n → even (m + n) 
+o+e≡o : ∀ {m n : ℕ} → odd m → even n → odd (m + n)
+
+e+e≡e zero n = n
+e+e≡e (suc m) n = suc (o+e≡o m n)
+o+e≡o (suc m) n = suc (e+e≡e m n)
+

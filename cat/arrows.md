@@ -27,3 +27,40 @@ Objects $A$ and $B$ are isomorphic in $\mathscr{C}$ , denoted $A\cong B$ if ther
 **Intuitively** the isomorphic objects look the same. In many math theory, isomorphic objects are distinguishable in terms of that theory. We want to identify and study constructions and properties that are **invariant** under the isomorphisms of the theory.
 
 An object "unique up to isomorphism" in possession of a particular **attribute** if the only other objects possessing that attribute are isomorphic 
+
+### Skeletal Category
+- In a skeletal category , $a\cong b \implies a=b$.
+- A poset is precisely a skeletal pre-order category.
+- $\text{Finord}$ is a skeletal category
+
+## Initial Objects
+- Given a set $A$ we can find function $\emptyset \to A$ where we can define $f = (\emptyset,A,\emptyset)$.
+- The image of $f$ is empty and $f$ is known as the **empty function**.
+- $\emptyset \times A$ is empty and the only subset of it is $\emptyset$. Hence $f$ is the only function from $\emptyset$ to $A$.
+
+**Initial Objects**
+- A object $0$ is initial in category in $\mathscr{C}$ if for every $\mathscr{C}\text{-object} \ A$ , $\exists ! \mathscr{C}\text{-arrow}$ $!:0\to A$
+- Any two initial objects must be isomorphic in $\mathscr{C}$
+- In a pre-order $(P, \prec)$ an initial object is an element $0\in P$ where $\forall p \in P$, $0\prec p$. (i.e. A minimal element)
+
+## Terminal Objects
+- An object $1$ is terminal in a category $\mathscr{C}$ if for every $\mathscr{C}\text{-object} \ A$ , $\exists ! \mathscr{C}\text{-arrow}$ $!:A\to 1$
+- In $\text{Set}$ , the terminal objects are the singletons $\{*\}$
+
+## Duality
+- Dual statement $\Sigma^{op}$
+- Dual Category $\mathscr{C}^{op}$
+- If $\Sigma$ is true of $\mathscr{C}$, $\Sigma^{op}$ is true of $\mathscr{C}^{op}$
+
+## Products
+- Without any reference to ordered pairs we can construction products
+- The projections : $p_A:A\times B\to A$ and $p_B:A\times B\to B$ is given by the rules $p_A((x,y))=x$ and $p_B((x,y))=y$
+- If we have some other set $C$ with maps $f:C\to A$ and $g:C\to B$. Then we define $p:C\to A\times B$ by the rules $p(x)=(f(x),g(x))$
+- $p_A\circ p = f$ , $p_B\circ p = g$
+- $p$ is defined as the only arrow satisfies
+
+**Product**
+- **A product** in a category $\mathscr{C}$ of two objects $A$ and $B$ is a $\mathscr{C}\text{-object} \ A\times B$ with pair $(pr_A:A\times B \to A, pr_B:A\times B\to B)$ of $\mathscr{C}\text{-arrows}$ such that for any pair of $\mathscr{C}\text{-arrows}$ of the form ($f:C\to A, g:C\to B$) there is exactly one arrow $(f,g):C\to A\times B$
+- $pr_A \circ (f,g) = f$ 
+- $pr_B \circ (f,g) = g$
+- $A\times B$ is defined up to isomorphism

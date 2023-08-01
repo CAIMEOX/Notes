@@ -307,4 +307,3 @@ o+e≡o : ∀ {m n : ℕ} → odd m → even n → odd (m + n)
 e+e≡e zero n = n
 e+e≡e (suc m) n = suc (o+e≡o m n)
 o+e≡o (suc m) n = suc (e+e≡e m n)
-

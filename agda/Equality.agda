@@ -1,5 +1,7 @@
 module Equality where
 
+
+-- For any type A and x:A , refl cons proof of x≡x
 data _≡_ {A : Set} (x : A) : A → Set where
   refl : x ≡ x
 
@@ -52,6 +54,23 @@ module ≡-Reasoning {A : Set} where
 
 open ≡-Reasoning
 
+trans' : ∀ {A : Set} {x y z : A} → x ≡ y → y ≡ z → x ≡ z
+trans' {A} {x} {y} {z} p q =
+  begin
+    x
+  ≡⟨ p ⟩
+    y
+  ≡⟨ q ⟩
+    z
+  ∎
+-- Expand --
+-- trans' (x ≡ ⟨ p ⟩ (y ≡ ⟨ q ⟩ ≡ (z ∎)))
+-- trans' (x ≡ ⟨ p ⟩ (y ≡ ⟨ q ⟩ ≡ ( z ≡ z )))
+-- trans' (x ≡ ⟨ p ⟩ (y ≡ z))
+-- trans' (x ≡ z)
+-- Equivalent to --
+-- trans' p (trans q refl)
+
 module Nat where
 data ℕ : Set where
   zero : ℕ
@@ -72,6 +91,7 @@ postulate
 
 data even : ℕ → Set
 data odd  : ℕ → Set
+
 
 data even where
   even-zero : even zero
@@ -96,3 +116,57 @@ even-comm' m n e with   m + n  | +-comm m n
 
 even-comm'' : ∀ (m n : ℕ) → even (m + n) → even (n + m)
 even-comm'' m n = subst even (+-comm m n)
+
+-- Leibniz Equality --
+-- Identity of Indiscernibles : two objects are equal iff they have same properties
+_≐_ : ∀ {A : Set} (x y : A) → Set₁
+_≐_ {A} x y = ∀ (P : A → Set₀) → P x → P y
+
+-- Note : Avoid Russell's Paradox
+
+refl-≐ : ∀ {A : Set} {x : A} → x ≐ x
+refl-≐ P Px = Px
+
+trans-≐ : ∀ {A : Set} {x y z : A} → x ≐ y → y ≐ z → x ≐ z
+trans-≐ p q P px = q P (p P px)
+
+-- Non-trivial Proof
+-- x≐y has type P x → P y
+sym-≐ : ∀ {A : Set} {x y : A} → x ≐ y → y ≐ x
+sym-≐ {A} {x} {y} x≐y P = Qy Qx
+-- Key is to construct function Q
+  where Q : A → Set
+        Q z = P z → P x
+        Qx : P x → P x
+        Qx = refl-≐ P
+        Qy : (P x → P x) → P y → P x
+        Qy = x≐y Q
+
+-- Martin-Lof equality implies Leibniz equality
+≡-implies-≐ : ∀ {A : Set} {x y : A} → x ≡ y → x ≐ y
+≡-implies-≐ x≡y P = subst P x≡y
+
+≐-implies-≡ : ∀ {A : Set} {x y : A} → x ≐ y → x ≡ y
+≐-implies-≡ {A} {x} {y} x≐y = Qy
+  where Q : A → Set
+        Q z = x ≡ z
+        Qx : Q x
+        Qx = refl
+        Qy : Q y
+        Qy = x≐y Q Qx
+
+-- Universe Polymorphism
+
+open import Level using (Level; _⊔_) renaming (zero to lzero; suc to lsuc)
+-- Any level equality
+data _≡'_ {ℓ : Level} {A : Set ℓ} (x : A) : A → Set ℓ where
+  refl' : x ≡' x
+
+sym' : ∀ {ℓ : Level} {A : Set ℓ} {x y : A} → x ≡' y → y ≡' x
+sym' refl' = refl'
+
+_≐'_ : ∀ {ℓ : Level} {A : Set ℓ} (x y : A) → Set (lsuc ℓ)
+_≐'_ {ℓ} {A} x y = ∀ (P : A → Set ℓ) → P x → P y
+
+_∘_ : ∀ {ℓ₁ ℓ₂ ℓ₃ : Level} {A : Set ℓ₁} {B : Set ℓ₂} {C : Set ℓ₃} → (B → C) → (A → B) → A → C
+(g ∘ f) x  =  g (f x)

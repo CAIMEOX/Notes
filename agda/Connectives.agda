@@ -123,4 +123,146 @@ T-identity_l = record {
 
 T-identity_r : ∀ {A : Set} → A × T ≃ A
 T-identity_r {A} = ≃-begin (A × T) ≃⟨ ×-comm ⟩ (T × A) ≃⟨ T-identity_l ⟩ A ≃-∎
-  
+
+-- Introduce Disjoint Union / Sum Type
+data _⊎_ (A B : Set) : Set where
+    inj-left : A → A ⊎ B  -- ⊎-I₁
+    inj-right : B → A ⊎ B  -- ⊎-I₂
+
+-- Eliminate:
+-- ⊎-E
+case-⊎ : ∀ {A B C : Set} → (A → C) → (B → C) → A ⊎ B → C
+case-⊎ f g (inj-left x) = f x
+case-⊎ f g (inj-right y) = g y
+
+η-⊎ : ∀ {A B : Set} (w : A ⊎ B) → case-⊎ inj-left inj-right w ≡ w
+η-⊎ (inj-left w) = refl
+η-⊎ (inj-right w) = refl
+
+-- Function apply 
+uniq-⊎ : ∀ {A B C : Set} (h : A ⊎ B → C) (w : A ⊎ B) → case-⊎ (h ∘ inj-left) (h ∘ inj-right) w ≡ h w
+uniq-⊎ h (inj-left x) = refl
+uniq-⊎ h (inj-right y) = refl
+
+infixr 1 _⊎_
+
+-- that is variant record type
+⊎-count : Bool ⊎ Tri → ℕ
+⊎-count (inj-left true)   =  1
+⊎-count (inj-left false)  =  1
+⊎-count (inj-right a)     =  4
+⊎-count (inj-right b)     =  5
+⊎-count (inj-right c)     =  1
+
+⊎-swap : ∀ {A B : Set} → A ⊎ B → B ⊎ A
+⊎-swap (inj-left x) = inj-right x
+⊎-swap (inj-right x) = inj-left x
+
+⊎-swap-identity : ∀ {A B : Set} → (w : A ⊎ B) → ⊎-swap (⊎-swap w) ≡ w
+⊎-swap-identity (inj-left x) = refl
+⊎-swap-identity (inj-right x) = refl
+
+⊎-comm : ∀ {A B : Set} → A ⊎ B ≃ B ⊎ A
+⊎-comm = record {
+        to = ⊎-swap ; 
+        from = ⊎-swap ;
+        left = ⊎-swap-identity ;
+        right = ⊎-swap-identity 
+    }
+
+
+⊎-assoc : ∀ {A B C : Set} → (A ⊎ B) ⊎ C ≃ A ⊎ (B ⊎ C)
+⊎-assoc = record {
+        to = ⊎-assoc-to ;
+        from = ⊎-assoc-from ;
+        left = ⊎-assoc-left ;
+        right = ⊎-assoc-right 
+    }
+    where
+    ⊎-assoc-to : ∀ {A B C : Set} → (A ⊎ B) ⊎ C → A ⊎ (B ⊎ C)
+    ⊎-assoc-to (inj-left (inj-left x)) = inj-left x
+    ⊎-assoc-to (inj-left (inj-right y)) = inj-right (inj-left y)
+    ⊎-assoc-to (inj-right z) = inj-right (inj-right z)
+
+    ⊎-assoc-from : ∀ {A B C : Set} → A ⊎ (B ⊎ C) → (A ⊎ B) ⊎ C
+    ⊎-assoc-from (inj-left x) = inj-left (inj-left x)
+    ⊎-assoc-from (inj-right (inj-left y)) = inj-left (inj-right y)
+    ⊎-assoc-from (inj-right (inj-right z)) = inj-right z
+
+    ⊎-assoc-left : ∀ {A B C : Set} → (w : ((A ⊎ B) ⊎ C)) → ⊎-assoc-from (⊎-assoc-to w) ≡ w
+    ⊎-assoc-left (inj-left (inj-left x)) = refl
+    ⊎-assoc-left (inj-left (inj-right y)) = refl
+    ⊎-assoc-left (inj-right z) = refl
+
+    ⊎-assoc-right : ∀ {A B C : Set} → (w : (A ⊎ (B ⊎ C))) → ⊎-assoc-to (⊎-assoc-from w) ≡ w
+    ⊎-assoc-right (inj-left x) = refl
+    ⊎-assoc-right (inj-right (inj-left y)) = refl
+    ⊎-assoc-right (inj-right (inj-right z)) = refl
+
+data ⊥ : Set where
+
+-- exfalso
+⊥-elim : ∀ {A : Set} → ⊥ → A
+⊥-elim ()
+
+uniq-⊥ : ∀ {A : Set} (h : ⊥ → A) (w : ⊥) → ⊥-elim w ≡  h w
+uniq-⊥ h ()
+
+⊥-count : ⊥ → ℕ 
+⊥-count ()
+
+⊥-identity-l : ∀ { A : Set } → ⊥ ⊎ A ≃ A
+⊥-identity-l {A} = record {
+        to = λ { (inj-right x) → x } ; 
+        from = λ { x → (inj-right x) } ;
+        left = λ { (inj-right x) → refl } ;
+        right = λ y → refl
+    }
+
+⊥-identity-r : ∀ { A : Set } → A ⊎ ⊥ ≃ A
+⊥-identity-r {A} = ≃-begin (A ⊎ ⊥) ≃⟨ ⊎-comm ⟩ (⊥ ⊎ A) ≃⟨ ⊥-identity-l ⟩ A ≃-∎
+
+-- Implication is function (Modus ponens)
+→-elim : ∀ {A B : Set} → (A → B) → A → B
+→-elim X Y = X Y
+
+η-→ : ∀ {A B : Set} (f : A → B) → (λ (x : A) → f x) ≡ f
+η-→ f = refl 
+
+-- This is crazy
+→-count : (Bool → Tri) → ℕ
+→-count f with f true | f false
+...          | a     | a      =   1
+...          | a     | b      =   2
+...          | a     | c      =   3
+...          | b     | a      =   4
+...          | b     | b      =   5
+...          | b     | c      =   6
+...          | c     | a      =   7
+...          | c     | b      =   8
+...          | c     | c      =   9
+
+currying : ∀ {A B C : Set} → (A → B → C) ≃ (A × B → C)
+currying = record {
+        to = λ { f → λ { ⟨ x , y ⟩ → f x y}} ;
+        from = λ { g → λ x y → g ⟨ x , y ⟩ } ; 
+        left = λ x → refl ;
+        right = λ g → extensionality λ {  ⟨ x , y ⟩ → refl }
+    }
+
+→-distrib-⊎ : ∀ {A B C : Set} → (A ⊎ B → C) ≃ ((A → C) × (B → C))
+→-distrib-⊎ = record {
+        to = λ x → ⟨ x ∘ inj-left  , x ∘ inj-right ⟩ ; 
+        from = λ{ ⟨ g , h ⟩ → λ { (inj-left x) → g x ; (inj-right x) → h x } } ;
+        left = λ { f → extensionality λ { (inj-left x) → refl ; (inj-right x) → refl}} ;
+        right = λ { ⟨ g , h ⟩ → refl }
+    }
+
+→-distrib-× : ∀ {A B C : Set} → (A → B × C) ≃  (A → B) × (A → C)
+→-distrib-× = record {
+        to = λ x → ⟨ left_proj ∘ x , right_proj ∘ x ⟩ ;
+        from = λ { ⟨ g , h ⟩ → λ x → ⟨ g x , h x ⟩ } ;
+        left = λ { f → extensionality λ { x → η-× (f x)}} ;
+        right = λ { ⟨ g , h ⟩ → refl }
+    }
+

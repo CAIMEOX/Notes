@@ -164,3 +164,34 @@ module ≲-Reasoning where
   A ≲-∎ = ≲-refl
 
 open ≲-Reasoning
+
+≃-implies-≲ : ∀ {A B : Set} → A ≃ B → A ≲ B
+≃-implies-≲ AB = record {
+        to = to AB ;
+        from = from AB ; 
+        left = left AB 
+    }
+
+record _⇔_ (A B : Set) : Set where
+    field
+        to : A → B
+        from : B → A
+open _⇔_
+
+⇔-refl : ∀ {A : Set} → A ⇔ A
+⇔-refl = record {
+        to = λ { x → x } ;
+        from = λ { x → x} 
+    }
+
+⇔-trans : ∀ {A B C : Set} → A ⇔ B → B ⇔ C → A ⇔ C
+⇔-trans AB BC = record {
+        to = to BC ∘ to AB ;
+        from = from AB ∘ from BC 
+    }
+
+⇔-sym : ∀ {A B : Set} → A ⇔ B → B ⇔ A
+⇔-sym AB = record {
+        to = from AB ;
+        from = to AB  
+    }

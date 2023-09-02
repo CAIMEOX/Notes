@@ -266,3 +266,33 @@ currying = record {
         right = λ { ⟨ g , h ⟩ → refl }
     }
 
+×-distrib-⊎ : ∀ {A B C : Set} → (A ⊎ B) × C ≃ (A × C) ⊎ (B × C)
+×-distrib-⊎ = record {
+        to = λ { ⟨ inj-left x , z ⟩ → (inj-left ⟨ x , z ⟩) ;
+                 ⟨ inj-right x , z ⟩ → (inj-right ⟨ x , z ⟩) } ;
+        from = λ { (inj-left ⟨ x , z ⟩) → ⟨ inj-left x , z ⟩ ;
+                   (inj-right ⟨ x , z ⟩) → ⟨ inj-right x , z ⟩ } ;
+        left = λ { ⟨ inj-left x , x₁ ⟩ → refl
+                 ; ⟨ inj-right x , x₁ ⟩ → refl } ;
+        right = λ { (inj-left ⟨ x , y ⟩) → refl;
+                    (inj-right ⟨ x , x₁ ⟩) → refl }
+    }
+
+⊎-distrib-× : ∀ {A B C : Set} → (A × B) ⊎ C ≲ (A ⊎ C) × (B ⊎ C) 
+⊎-distrib-× = record {
+        to = λ { (inj-left ⟨ x , z ⟩) → ⟨ inj-left x , inj-left z ⟩ ;
+                 (inj-right z) → ⟨ inj-right z , inj-right z ⟩ } ;
+        from = λ { ⟨ inj-left x , inj-left z ⟩ → (inj-left ⟨ x , z ⟩) ;
+                   ⟨ inj-left x , inj-right z ⟩ → (inj-right z) ;
+                   ⟨ inj-right z , _ ⟩ → (inj-right z) } ;
+        left = λ { (inj-left ⟨ x , x₁ ⟩) → refl ; (inj-right x) → refl }
+    }
+
+-- The weak distributive law
+⊎-weak-× : ∀ {A B C : Set} → (A ⊎ B) × C →  A ⊎ (B × C)
+⊎-weak-× ⟨ inj-left x , x₁ ⟩ = inj-left x 
+⊎-weak-× ⟨ inj-right x , x₁ ⟩ = inj-right ⟨ x , x₁ ⟩
+
+⊎×-implies-×⊎ : ∀ {A B C D : Set} → (A × B) ⊎ (C × D) → (A ⊎ C) × (B ⊎ D)
+⊎×-implies-×⊎ (inj-left x) = ⟨ inj-left (left_proj x) , inj-left (right_proj x) ⟩
+⊎×-implies-×⊎ (inj-right x) = ⟨ inj-right (left_proj x) , inj-right (right_proj x ) ⟩

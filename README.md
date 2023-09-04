@@ -1,6 +1,9 @@
 # Type Theory
 Type Theory and ITP notes. (Also include some abstract math)
-> Currently working on Category Notes
+> Currently working on Agda
+
+## Lambda Calculus
+[Untyped Lambda Calculus](./tt/lambda.md)
 
 ## Type Theory Notes
 [Type Theory](./tt/type_theory.md)
@@ -19,5 +22,6 @@ Type Theory and ITP notes. (Also include some abstract math)
 - Stanford Encyclopedia of Philosophy
   - Intuitionistic Type Theory
 - Homotopy Type Theory 
+- Type Theory and formal proof
 -  Introduction to Univalent Foundations of Mathematics with Agda
 -  Topoi : The Categorical Analysis of Logic

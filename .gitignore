@@ -1,4 +1,3 @@
 /agda/*.agdai
 *.agdai
-.vscode
 /_build/

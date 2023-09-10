@@ -1,5 +1,12 @@
 # Preliminaries of algebra
 
+## Logic 
+- $x$ has property $E$ means $E(x)$ is true.
+- $x$ belongs to a class : $x\in X$ otherwise $x\not \in X$
+- $\{x\in X;E(x)\}$ is the class of all elements $x$ of the collection $X$ which have property $E$.
+- $\exist$ for the quantifier 'there exists'
+- $\forall$ for the quantifier 'for all'
+- Symbol $a:=b$ means 'is defined by'
 ## Notations
 
 - $\mathbb{Z} = \{0, \pm1,\pm2,\dots \}$

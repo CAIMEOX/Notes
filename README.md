@@ -19,9 +19,23 @@ My math and computer science notes.
 [Arrows](/cat/arrows.md)
 
 ## References
-- Stanford Encyclopedia of Philosophy
+- Analysis
+  - Understanding analysis
+  - Analysis I by *Amann*
+- Abstract Algebra
+  - Abstract Algebra by *Dummit*
+  - Algebra Chapter 0
+  - Contemporary Abstract Algebra
+- Type Theory and PLT
   - Intuitionistic Type Theory
-- Homotopy Type Theory 
-- Type Theory and formal proof
--  Introduction to Univalent Foundations of Mathematics with Agda
--  Topoi : The Categorical Analysis of Logic
+  - Homotopy Type Theory Book
+  - Type Theory and formal proof
+  - Practical Foundations for programming languages
+  - Introduction to Univalent Foundations of Mathematics with Agda
+- Category Theory and Topos
+  - Topoi : The Categorical Analysis of Logic
+  - Conceptual Mathematics
+  - Category Theory in Context
+- Other
+  - Stanford Encyclopedia of Philosophy
+  

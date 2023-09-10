@@ -1,6 +1,6 @@
-# Type Theory
-Type Theory and ITP notes. (Also include some abstract math)
-> Currently working on Agda
+# Notes
+My math and computer science notes.
+> Currently working on lambda calculus
 
 ## Lambda Calculus
 [Untyped Lambda Calculus](./tt/lambda.md)

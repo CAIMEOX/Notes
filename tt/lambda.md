@@ -188,3 +188,61 @@ Notes:
 - Untyped Lambda Calculus is Turning-complete
 - Combinatory logic can be seen as the lambda calculus restricted to the terms $\text{K}:= \lambda xy.x$ and $\text{S}:=\lambda xyz . x \ z ( y z ) $. This system is simpler than lambda calculus but slightly more difficult to work with
 - De Bruijn invented a way of representing $\lambda\text{-terms}$ without using named variables (**de bruijn indices**)
+
+## Simply typed lambda calculus
+### Types
+The set $\mathbb{T}$ of all types (here we denote $\mathbb{V} =\{\alpha,\beta,\gamma,\cdots\}$ to be the infinite set of type variables )
+- (Type variable) $\alpha \in \mathbb{V} \implies \alpha \in \mathbb{T}$
+- (Arrow Type) $\sigma , \tau \in \mathbb{T} \implies (\sigma \to \tau) \in \mathbb{T}$
+- (Abstract syntax) $\mathbb{T = V} | \mathbb{T \to T}$
+- Arrow type has right-associativity
+
+To express things like term $M$ has type $\sigma$, we use statements (typing statements) of the form $M: \sigma$
+
+- Each variable has a unique type $x : \sigma \land x : \tau \implies \sigma \equiv \tau$
+
+The natural requirements for the typing of applications and abstractions:
+- Application : if $M : \sigma \to \tau $ and $N : \sigma$ then $MN : \tau$
+- Abstraction : if $x : \tau$ and $N:\sigma$ then $\lambda x  . M : \sigma \to \tau$
+
+Examples:
+- $x:\tau$ then $\lambda x .x : \tau \to \tau$
+- $x \ x$ can have a type because $\sigma \to \tau \not\equiv \tau$
+
+**Typable term**: A term is called **typable** if there's a type $\sigma$ such that $M:\sigma$ .
+
+### Church-typing and Curry-typing
+- (Typing a la Church ; Explicit typing) : Prescribe a (unique) type for each variable upon its introduction
+- (Typing a la Curry ; Implicit typing) : Leave variables open to some extent
+- The types of the free variables are given is a **context** (Basis)
+- The judgement: $x:\alpha\to\alpha , y:(\alpha\to\alpha)\to\beta\vdash (\lambda z:\beta .\lambda u:\gamma .z)(y\ x) : \gamma\to\beta$ (The left is context and the right side is typable term)
+
+### Derivation rules for Church's $\lambda\to$
+Pre-typed lambda terms $\Lambda_\mathbb{T}$ : 
+$$\Lambda_\mathbb{T}=V|(\Lambda_\mathbb{T}\Lambda_\mathbb{T})|\lambda V:\mathbb{T} .\Lambda_\mathbb{T}$$
+
+**Definitions**
+- **Statement**: the form $M:\sigma$ where $M\in\Lambda_\mathbb{T} \land \sigma\in\mathbb{T}$, $M$ is called the subject and $\sigma$ the type
+- **Declaration**: Statement with a variable as subject
+- **Context**: A list of declarations with different subjects
+- **Judgement**: $\Gamma\vdash M:\sigma$ with $\Gamma$a context and $M:\sigma$ a statement
+
+Derivation System (How certain judgement can be formally established)
+
+Premiss-conclusion format : A number of premisses appear above a horizontal line and the conclusion below.
+$$\frac{\text{premiss}_1 \quad \text{premiss}_2\quad \cdots \quad\text{premiss}_n}{\text{conclusion}} (\text{Name})$$
+
+Derivation rules for $\lambda\to$ :
+- $x:\sigma\in\Gamma\implies\Gamma\vdash x:\sigma(\text{Variable})$ (This rule has no premisses but only contains conclusion)
+
+- $\dfrac{\Gamma\vdash M:\sigma\to\tau \quad \Gamma\vdash N:\sigma}{\Gamma\vdash MN:\tau} (\text{Application})$
+
+- $\dfrac{\Gamma,x:\sigma\vdash M:\tau}{\Gamma\vdash\lambda x:\sigma.M:\sigma\to\tau} (\text{Abstraction})$
+
+- The rules is universal which hold for arbitrary $\Gamma, \sigma, \tau, M, N$ 
+- The empty context is denoted as $\emptyset$
+
+**Logic** (Natural deduction):
+- $\dfrac{A\implies B \quad A} {B} (\implies\text{-elim})$
+
+- $\dfrac{\text{Assume A} \quad\cdots\quad B}{A\implies B}$

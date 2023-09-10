@@ -42,7 +42,8 @@ All the sets are built up from certain simple ones (We can start with $\emptyset
 In this case the Comprehension Principle can only be used relative to a given set.
 
 #### Separation Principle 
-Given a set $A$ and a condition $\phi(x)$ there exists a set whose elements are precisely those members of $A$ that satisfy $\phi(x)$. $$\{x:x\in A \land \phi(x)\}$$
+Given a set $A$ and a condition $\phi(x)$ there exists a set whose elements are precisely those members of $A$ that satisfy $\phi(x)$. 
+$$\{x:x\in A \land \phi(x)\}$$
 
 ## Consistency
 This systems avoid Russell's Paradox but do not guarantee the consistency (Entirely free of **contradictions**).

@@ -7,6 +7,17 @@
 - $\exist$ for the quantifier 'there exists'
 - $\forall$ for the quantifier 'for all'
 - Symbol $a:=b$ means 'is defined by'
+- Implication: $(A\implies B) := (\lnot A)\lor B$ (To prove $B$ is **suffices** to prove $A$ / $B$ is **necessary** for $A$ to be true)
+- Equivalence: $A\iff B := (A\implies B)\land (B\implies A)$ 
+- $(A\implies B)\iff (\lnot B\implies \lnot A)$ ($(\lnot B\implies \lnot A)$ is called the contrapositive of the $A\implies B$)
+- $A:\iff B$ : $A$ is true, by definition, if $B$ is true
+
+## Theorem / Lemma / Corollary
+- All these are propositions
+- Theorem is a particularly important proposition
+- Lemma is a proposition which precedes a theorem and is needed for its proof
+- Corollary is a proposition which follows directly from a theorem
+
 ## Notations
 
 - $\mathbb{Z} = \{0, \pm1,\pm2,\dots \}$
@@ -14,17 +25,6 @@
 - $\mathbb{R}$ : Real numbers
 - $\mathbb{C} = \{a+bi|a,b\in\mathbb{R}, i^2=-1\}$
 - $\mathbb{F}^+$ denotes the positive elements in $\mathbb{F}$
-
-## Relation
-- A **binary relation** on a set $A$ is a subset $R$ of $A\times A$, denoted $a \sim b$ if $(a,b)\in R$
-- An **equivalence relation** is a relation st
-  - reflexive $\forall a\in A ,a\sim a$
-  - symmetric $\forall a,b\in Aa\sim b \land b \sim a$
-  - transitive $\forall a,b,c\in A, a\sim b \land b\sim c \implies a \sim c$
-- **Equivalent class** of $a\in A$ : $\{x\in A|x\sim a\}$
-- **Partition** of $A$ : A collection $\{A_i|i\in I\}$ ($I$ is an indexing set) st
-  - $A=\bigcup_{i\in I}A_i$
-  - $\forall i,j \in I, i\not = j,A_i\cap A_j=\emptyset$
 
 ## Properties of $\mathbb{Z}$
 - (Well-ordering) If $A$ is any nonempty subset of $\mathbb{Z}^+$ then there is some element $m\in A$ st $m\leq a$ forall $a\in A$ ($m$ is the minimal element of $A$)

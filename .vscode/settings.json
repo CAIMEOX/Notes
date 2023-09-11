@@ -1,3 +1,8 @@
 {
-    "editor.fontFamily": "'DejaVu Sans Mono'"
+    "editor.fontFamily": "'DejaVu Sans Mono'",
+    "cSpell.words": [
+        "bijective",
+        "injective",
+        "surjective"
+    ]
 }

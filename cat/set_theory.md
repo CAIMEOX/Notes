@@ -3,16 +3,17 @@
 ## Basic Relations
 $x\in A$ means that $A$ is a collection of objects, $x$ is an element of that collection. We say that $x$ belongs to $A$.
 
-
 ## Construct
 ### Tabular form
-List the elements enclosed in brackets.$$\{0,1,2,3\}$$
+List the elements enclosed in brackets.
+$$\{0,1,2,3\}$$
 
 ### Set Builder form 
 Specify a set by stating a property that is possessed by all the elements of the set.   
 
 #### Principle of Comprehension
-If $\phi (x)$ is a property or condition pertaining to objects $x$ then there  exists a set whose elements are precisely the objects that have the property (Or satisfy the condition) $\phi (x)$: $$\{x:\phi(x) \}$$
+If $\phi (x)$ is a property or condition pertaining to objects $x$ then there  exists a set whose elements are precisely the objects that have the property (Or satisfy the condition) $\phi (x)$: 
+$$\{x:\phi(x) \}$$
 
 **Examples**:
 - $\phi(x)=x\in A \land x \in B$ then we obtain the set $A\cap B$
@@ -23,16 +24,33 @@ If $\phi (x)$ is a property or condition pertaining to objects $x$ then there  e
 ## Principle of Extensionality
 The sets are equal iff they have the same elements.
 
-
 ## Subsets
-A set $A$ is a subset of set $B$, written $A\subset B$
+A set $A$ is a subset of set $B$, written $A\subseteq B$
 
-## Russell's Paradox
+If $X$ and $Y$ are sets, the equality pf sets is defined by 
+$$
+X=Y:\iff (X\subseteq Y)\land (Y\subseteq X)
+$$
+
+If $X\subseteq Y$ and $X\not=Y$ then $X$ is called a **proper  subset** of $Y$ 
+
+## Power Set
+If $X$ is a set then its **power set** $\mathcal{P}(x)$ is a set of all the subsets of $X$
+
+## Families of Sets
+Let $\mathsf{A}$ be index set and for each $\alpha\in\mathsf{A}$, $X$ be a set and $\mathcal{A}:=\{A_\alpha ; \alpha\in\mathsf{A}\}$ be of a family of subsets of $X$
+- The intersection : 
+  $$\bigcap_{\alpha}A_\alpha:=\{x\in X ; \forall \alpha\in\mathsf{A}:x\in A_\alpha\}$$
+- The union :
+  $$\bigcup_{\alpha}A_\alpha:=\{x\in X ; \exists \alpha\in\mathsf{A}:x\in A_\alpha\}$$
+
+ ## Russell's Paradox
 - Universal Set $V=\{x:x=x\}$
 - Russell Set $R=\{x:x\in x\}$
 
 ### NBG
-The Comprehension Principle is modified by requiring the objects $x$ referred to there to be sets:$$\{x:\phi(x)\land x \ \text{is a set} \}$$
+The Comprehension Principle is modified by requiring the objects $x$ referred to there to be sets:
+$$\{x:\phi(x)\land x \ \text{is a set} \}$$
 
 And we have the concept of class which can be thought of bigger sets.A class which is not a set is called proper class.
 

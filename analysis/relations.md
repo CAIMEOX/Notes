@@ -20,4 +20,3 @@ $$x\leq y \land y\leq x \implies x=y$$
 - Pair $(X,\leq)$ is called a **partially ordered set**
 - In addition with $\forall x,y\in X:x\leq y \lor y\leq x \implies x=y$ then $\leq$ is called a **total order** on $X$
 
-### Examples

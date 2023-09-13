@@ -22,6 +22,7 @@ If in a group $G$, $\forall a,b\in G, a\circ b=b\circ a$ then $G$ is called an *
 ### Examples
 - Any vector space is also an abelian group (Under addition)
 - $\mathbb{Z}/n\mathbb{Z}$ with $+$ is abelian group (prove later) 
+- The **trivial group** : $\{e\}$
 
 ### Notations
 - Denote $x^{-1}x^{-1}\cdots x^{-1}$ ($n$ terms) by $x^{-n}$
@@ -130,3 +131,38 @@ The map $\phi:G\to H$ is called **isomorphism** and $G$ and $H$ are said to be *
 - Any non-abelian group of order $6$ is isomorphic to $S_3$
   - $D_6\cong S_3\cong GL_2(\mathbb{F}_2)$
   - $S_3\not\cong \mathbb{Z}/6\mathbb{Z}$
+
+## Group Actions
+A group action of a group $G$ on a set $A$ is a map from $G\times A \to A$ ($g\cdot a$), $\forall g\in G$ and $a\in A$ satisfying the following properties:
+- $g_1\cdot (g_2\cdot a)=(g_1g_2)\cdot a$
+- $\forall a\in A,1\cdot a = a$
+
+For each fixed $g\in G$ we have a map $\sigma_g:A\to A$ defined by $\sigma_g(a)=g\cdot a$
+- For each fixed $g\in G$, $\sigma_g$ is a **permutation** of $A$
+- The map from $G$ to $S_A$ defined by $g\mapsto \sigma_g$ os a homomorphism
+
+**Proof** (1):
+$$\begin{align*}
+(\sigma_{g^{-1}}\circ\sigma_g)(a) &=\sigma_{g^{-1}}\circ(\sigma_g(a)) \\&=g^{-1}\cdot(g\cdot a)\\&=(g^{-1}g)\cdot a\\&=1\cdot a=a
+\end{align*}$$
+
+**Proof** (2):
+Let $\phi:G\to S_A$ be defined by $\phi(g)=\sigma_g\in S_A$
+$$\begin{align*}
+  \phi(g_1g_2)(a)&=\sigma_{g_1g_2}(a) \\ 
+  &=(g_1g_2)\cdot(a) \\
+  &=g_1\cdot(g_2\cdot a) \\ 
+  &=\sigma_{g_1}(\sigma_{g_2}(a)) \\ 
+  &=(\phi(g_1)\circ\phi(g_2))(a)
+\end{align*}
+$$
+
+## Subgroups
+Let $G$ be a group and $H$ be a nonempty subset of $G$ which is closed under operation $\times$ and :
+- $\forall a,b\in H,a\times b\in H$
+- $\forall h\in H,h^{-1}\in H$
+
+then $H$ is a subgroup of $G$. $e=h\times h^{-1}$ is always in group $H$
+
+### Examples
+- If $H_\alpha, \alpha\in\mathsf{A}$ are subgroups of $G$ then $\bigcap_\alpha H_\alpha$ is also a subgroup of $G$ 

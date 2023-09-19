@@ -21,6 +21,7 @@ If in a group $G$, $\forall a,b\in G, a\circ b=b\circ a$ then $G$ is called an *
   - Just prove $ax=b$ has unique solution by applying the inverse of $a$
 ### Examples
 - Any vector space is also an abelian group (Under addition)
+- Let $G_1,G_2,\dots,G_n$ be groups. Then $G_1\times G_2\times \cdots \times G_n$ with operation defined component-wise is a group called the **direct product** of $G_1,G_2,\dots,G_n$
 - $\mathbb{Z}/n\mathbb{Z}$ with $+$ is abelian group (prove later) 
 - The **trivial group** : $\{e\}$
 
@@ -115,7 +116,7 @@ is called a **group homomorphism**
 
 The map $\phi:G\to H$ is called **isomorphism** and $G$ and $H$ are said to be **isomorphic** ($G\cong H$) if
 - $\phi$ is a homomorphism
-- $\phi$ is a bijection
+- $\phi$ is a bijection 
 
 ### Properties
 - $|G|=|H|$
@@ -165,4 +166,54 @@ Let $G$ be a group and $H$ be a nonempty subset of $G$ which is closed under ope
 then $H$ is a subgroup of $G$. $e=h\times h^{-1}$ is always in group $H$
 
 ### Examples
-- If $H_\alpha, \alpha\in\mathsf{A}$ are subgroups of $G$ then $\bigcap_\alpha H_\alpha$ is also a subgroup of $G$ 
+- If $H_\alpha, \alpha\in\mathsf{A}$ are subgroups of $G$ then $\bigcap_\alpha H_\alpha$ is also a subgroup of $G$
+
+## Cosets and Quotient Groups
+Let $N$ be a subgroup of $G$ and $g\in G$. Then $g\circ N$ is the left coset and $N\circ g$ is the right coset of $g\in F$ with respect to $N$.
+
+Define : 
+$$g\sim h : \iff g\in h\circ N$$
+Then $\sim$ is an equivalence relation on $G$
+- Reflexive : $g\in g\circ N$
+- Transitive : If $g\in h\circ N$ and $h\in k\circ N$ then 
+$$g\in(k\circ N)\circ N=k\in(N\circ N)=k\in N$$
+- Symmetry : If $g\in h\circ N$ then there's some $n\in N$ with $g=h\circ n$ hence $h = g\circ n^{-1}\in g\circ N$.
+
+For the equivalence classes $[\cdot]$ with respect to $\sim$, we have $[g]=g\circ N,g\in G$ .
+
+Denote $G/\sim$ by $G/N$ and call it the set of left cosets of $G$ modulo $N$
+
+If $\forall g\in G,g\circ N=N\circ g$ then $N$ is called a **normal subgroup** of $G$ and $g\circ N$ **the coset of $g$ modulo $N$** 
+
+For a normal subgroup $N$ of $G$ :
+- Associativity : $(g\circ N)\circ (h\circ N)=(g\circ h)\circ N$
+- Induced operation ($\circ : G/N\times G/N\to G/N$) : $(g\circ N,h\circ N)\mapsto (g\circ h)\circ N$
+- Let $G$ be a group and $N$ a normal subgroup if $G$. Then $G/N$ with induced operation is a group, **the quotient group of $G$ modulo $N$**.
+- The Identity is $e\circ N = N$
+- $(g^{-1}\circ N)\circ (g\circ N)=(g^{-1}\circ g)\circ N=e\circ N=N$
+
+## Kernel 
+Let $\phi:G\to H$ be a homomorphism. The **kernel** of $\phi$, $\text{ker}(\phi)$ is defined by 
+$$\text{ker}(\phi):=\phi^{-1}(e_H)=\{ g\in G;\phi(g)=e_H\} $$
+is a subgroup of $G$
+
+**Proof** :
+
+> Subgroup :
+- $\forall g,h\in \text{ker}(\phi)$, $\phi(g\circ h)=\phi(g)\times \phi(h)=e_H\times e_H=e_H$
+- $\phi(g^{-1})=(\phi(g))^{-1}=(e_H)^{-1}=e_H$
+
+> Normal :
+- Let $h\in g\circ\text{ker}(\phi)$ then there's some $n\in G$ st $\phi(n)=e_H\land h=g\circ n$
+- Let $m:=g\circ n\circ g^{-1}$ then $\phi(m)=\phi(g)\times \phi(n)\times \phi(g^{-1})=\phi(g)\times \phi(g^{-1})=e_H$ hence $m\in \text{ker}(\phi)$
+- $m\circ g=g\circ n=h \implies h\in \text{ker}(\phi)\circ g\implies g\circ\text{ker}(\phi)\subseteq \text{ker}(\phi)\circ g$
+- Similarly $\text{ker}(\phi)\circ g\subseteq g\circ\text{ker}(\phi)$
+- $\text{ker}(\phi)\circ g=g\circ\text{ker}(\phi)$
+
+Let $\phi:G\to H$ be a homomorphism and $N:=\text{ker}(\phi)$ then $\forall g\in G,g\circ N=\phi^{-1}(\phi(g))$
+
+**Proof** :
+
+For $h\in g\circ N$ we have
+$$\phi(h)\in\phi(g\circ N)=\phi(g)\times \phi(N)=\phi(g)\times \{e_H\}=\{\phi(g)\}$$ 
+and so $h\in \phi^{-1}(\phi(g))$

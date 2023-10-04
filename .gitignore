@@ -2,3 +2,4 @@
 *.agdai
 /_build/
 /.obsidian
+/**/**.pdf

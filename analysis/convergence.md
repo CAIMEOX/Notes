@@ -72,4 +72,71 @@ $$\text{diam}(Y):=\text{sup}_{x,y\in Y} d(x,y)$$
 - The limit of a convergent is unique.
 
 ## Subsequence
+Let $\phi=(x_n)$ be a sequence in $X$ and $\sigma:\mathbb{N}\to\mathbb{N}$ a **strictly increasing** function. Then $\phi\circ\sigma\in X^\mathbb{N}$ is called a subsequence of $\phi$
 
+- A point $a$ us a cluster point of a sequence $(x_n)$ iff $\exist (x_{n_k})_{k\in\mathbb{N}}$ of $(x_n)$ which converges to $a$
+
+## Null Sequence
+A sequence $(x_n)$ in $\mathbb{K}$ is called a **null sequence** if it converges to zero. That is, $\forall \epsilon >0,\exist N\in\mathbb{N}$ st $\forall n\geq N,|x_n|<\epsilon$.
+
+The set of all null sequences in $\mathbb{K}$ is denoted:
+$$c_0:=c_0(\mathbb{K}):=\{(x_n)\in s;\lim x_n=0\}$$
+
+**Propositions** :
+Let $(x_n)$ and $(y_n)$ be sequences in $\mathbb{K}$
+- If $\lim x_n=a$ and $\lim y_n=b$
+  - $\lim (x_n+y_n)=a+b$
+  - $\alpha\in\mathbb{K},\lim \alpha x_n = \alpha a$
+  - $\lim (x_n y_n)=ab$
+- If $(x_n)$ is a null sequence and $(y_n)$ is a bounded sequence, then $(x_n y_n)$ is a null sequence
+
+## Comparison Test
+- Let $(x_n)$ and $(y_n)$ be convergent sequences in $\mathbb{R}$ st $x_n<y_n$ for infinitely many $n\in\mathbb{N}$. Then:
+$$\lim x_n\leq \lim y_n$$
+
+- Let $(x_n)$, $(y_n)$ and $(z_n)$ be convergent sequences in $\mathbb{R}$ st $x_n\leq y_n\leq z_n$ for almost all $n\in\mathbb{N}$. If $\lim x_n=\lim z_n=a$ then $(y_n)$ also converges to $a$
+
+## Some important limits
+Let $a\in\mathbb{C}$ then
+- $a^n\to 0$ if $|a|<1$
+- $a^n\to 1$ if $a=1$
+- $a^n$ diverges if $|a|\geq 1,a\not=1$
+
+---
+
+Let $k\in\mathbb{N}$ and $c\in\mathbb{C}$ st $|a|>1$ then
+$$\lim_{n\to\infty}\frac{n^k}{a^n}=0$$
+
+---
+
+For all $a\in\mathbb{C}$
+$$\lim_{n\to\infty}\frac{a^n}{n!}=0$$
+
+---
+
+
+For $n\in \mathbb{R}$:
+$$\lim_{n\to\infty} n^{\frac{1}{n}}=1$$
+**Proof**:
+
+
+Let $\epsilon>0$ and the sequence $x_n=\dfrac{n}{(1+\epsilon)^n}$ is a null sequence. Thus $\exist N$ st
+$$\forall n\geq N ,x_n<1$$
+That is
+$$1\leq n\leq (1+\epsilon)^n$$
+The $n^{\text{th}}$ root function is increasing and so
+$$1\leq n^{\frac{1}{n}}\leq 1+\epsilon$$
+
+--- 
+
+For all $a>0, \lim_{n\to\infty}a^{\frac{1}{n}}=1$
+
+**Proof**:
+By **Archimedean Property** of $\mathbb{R}$, $\exist N\in\mathbb{N}$ st $\forall n\geq N, \frac{1}{n}<a<n$
+$$\frac{1}{n^{\frac{1}{n}}} = \left(\frac{1}{n}\right)^{\frac{1}{n}}\leq a^{\frac{1}{n}}\leq n^{\frac{1}{n}}$$
+Hence the claim is true.
+
+## Limit Superior and Inferior
+Let $(x_n)$ be a sequence in $\mathbb{R}$ we can define $(y_n)$ and $(z_n)$ by
+$$y_n:=\text{sup}_{k\geq n}x_k:=\text{sup}\{x_k;k\geq n\}$$
+$$z_n:=\text{inf}_{k\geq n}x_k:=\text{inf}\{x_k;k\geq n\}$$

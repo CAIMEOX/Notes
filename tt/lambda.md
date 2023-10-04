@@ -244,5 +244,11 @@ Derivation rules for $\lambda\to$ :
 
 **Logic** (Natural deduction):
 - $\dfrac{A\implies B \quad A} {B} (\implies\text{-elim})$
+  - Known as Modus Ponens. (Rule to eliminate an $\implies$)
 
-- $\dfrac{\text{Assume A} \quad\cdots\quad B}{A\implies B}$
+- $\dfrac{\text{Assume A} \quad\cdots\quad B}{A\implies B}(\implies\text{-intro})$
+  - To obtain an implication. Starts with assumption $A$ and try to show that $B$ holds
+
+### Legal $\lambda\to\text{-terms}$
+A pre-typed term $M$ in $\lambda\to$ is called **legal** if there exist context $\Gamma$ and type $\rho$ st $\Gamma\vDash M:\rho$
+

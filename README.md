@@ -1,6 +1,6 @@
 # Notes
 My math and computer science notes.
-> Currently working on lambda calculus
+> Currently working on Analysis
 
 ## Lambda Calculus
 [Untyped Lambda Calculus](./tt/lambda.md)

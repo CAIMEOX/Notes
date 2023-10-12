@@ -1,8 +1,11 @@
 # Arrows
 ## Monic Arrows
-A set function $f:A\to B$ is said to be **injective** iff $\forall x, y \in A$:$$f(x)=f(y) \implies x=y$$
+A set function $f:A\to B$ is said to be **injective** iff $\forall x, y \in A$:
+$$f(x)=f(y) \implies x=y$$
 
-The injective function is left **cancellable**:$$\text{whenever} \ f\circ g=f \circ h \ \text{then} \ g=h$$ and vice verse.
+The injective function is left **cancellable**:
+$$\text{whenever} \ f\circ g=f \circ h \ \text{then} \ g=h$$
+and vice verse.
 
 An arrow $f:A\to B$ in category $\mathscr{C}$ is **monic** if for any parallel pair $g,h:C\rightrightarrows A$ of $\mathscr{C}\text{-arrows}$, the equality $f\circ g = f\circ h$ implies that $g=h$. (denoted $f:A\rightarrowtail B$)
 
@@ -12,7 +15,8 @@ A set function $f:A\to B$ is said to be **surjective** iff the codomain $B$ is $
 An arrow $f:A\to B$ is **epic** (Right cancellable) in category $\mathscr{C}$ if for any parallel pair $g,h:C\rightrightarrows A$ of $\mathscr{C}\text{-arrows}$, the equality $g\circ f = h\circ f$ implies that $g=h$. (denoted $f:A\twoheadrightarrow B$)
 
 ## Iso Arrows
-A function that is both surjective and injective is called **bijective**. If $f:A\cong B$ and $g:B\cong A$:$$g\circ f = \text{id}_A \land f\circ g=\text{id}_B$$
+A function that is both surjective and injective is called **bijective**. If $f:A\cong B$ and $g:B\cong A$:
+$$g\circ f = \text{id}_A \land f\circ g=\text{id}_B$$
 - $g$ is said to be an **inverse** of $f$
 - $g$ is unique
 - denote $g=f^{-1}$
@@ -64,3 +68,26 @@ An object "unique up to isomorphism" in possession of a particular **attribute**
 - $pr_A \circ (f,g) = f$ 
 - $pr_B \circ (f,g) = g$
 - $A\times B$ is defined up to isomorphism
+
+## Co-products
+The dual of product is the co-product or sum
+
+- A **co-product** of $\mathscr{C}\text{-objects}$ $A$ and $B$ is a $\mathscr{C}\text{-object}$ $A+B$ together with a pair $i_A:A\to A+B$ and $i_B:B\to A+B$ of $\mathscr{C}\text{-arrows}$ st $\forall$ pair of $\mathscr{C}\text{-arrows}$ of the form $(f:A\to C$ and $g:B\to C)$ there's exactly one arrow $[f,g]:A+B\to C$ st
+- $[f,g]\circ i_A=f$
+- $[f,g]\circ i_B=g$
+- $[f,g]$ is called the co-product arrow of $f$ and $g$ with respect to the injections $i_A$ and $i_B$
+
+## Equalizer
+- Given a pair $f,g:A\rightrightarrows B$ of parallel functions in category **Set**, let $E$ be the subset of $A$ on which $f$ and $g$ agree, i.e.
+$$E=\{x:x\in A\land f(x)=g(x)\}$$
+- The **inclusion** function $i:E\xhookrightarrow{} A$ is called the **equalizer** of $f$ and $g$. 
+- Under composition with $i$ we can see $f\circ i=g\circ i$. The two functions are equalized by $i$.
+- $i$ is **canonical equalizer** of $f$ and $g$ if $h:C\to A$ is any other such equalizer of $f$ and $g$ (i.e. $f\circ h=g\circ h$). Then $h$ *factors* uniquely through $i:E\xhookrightarrow{} A$ (There is exactly one function $k:C\to E$ st $i\circ k=h$)
+
+--- 
+
+- An arrow $i:E\to A$ in $\mathscr{C}$ is an equalizer of a pair $f,g:A\to B$ of $\mathscr{C}\text{-arrows}$ if
+- $f\circ i=g\circ i$
+- Whenever $h:C\to A$ has $f\circ h=g\circ h$ in $\mathscr{C}$ there is exactly one $\mathscr{C}\text{-arrow}$ $k:C\to E$ st $i\circ k=h$
+- Every equalizer is monic
+- In any category, an epic equalizer is iso

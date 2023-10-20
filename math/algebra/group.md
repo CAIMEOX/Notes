@@ -1,56 +1,70 @@
 # Groups
-A **group** $(G,\circ)$ is a set $G$ with a binary operation $\circ$
-- (Closure) $\forall a,b\in G,a \circ b\in G$
-- (Associativity) $\forall a,b,c\in G, (a\circ b) \circ c= a \circ (b \circ c)$
-- (Identity) $\exist e\in G$ st $\forall g\in G, g\circ e=e\circ g = g$
-- (Inverse) $\forall g\in G,\exist g^{-1}\in G$ st $g\circ g^{-1}=e$
+> [!defintion] Group
+>  A **group** $(G,\circ)$ is a set $G$ with a binary operation $\circ$
+>  - (Closure) $\forall a,b\in G,a \circ b\in G$
+> - (Associativity) $\forall a,b,c\in G, (a\circ b) \circ c= a \circ (b \circ c)$
+> - (Identity) $\exists e\in G$ st $\forall g\in G, g\circ e=e\circ g = g$
+> - (Inverse) $\forall g\in G,\exists g^{-1}\in G$ st $g\circ g^{-1}=e$
 
-If in a group $G$, $\forall a,b\in G, a\circ b=b\circ a$ then $G$ is called an **abelian (commutative) group**.
+> [!defintion] Abel Group
+> If in a group $G$, $\forall a,b\in G, a\circ b=b\circ a$ then $G$ is called an **abelian (commutative) group**.
 
 ### Propositions
-- The identity is unique
-  - If there's another identity, denotes $e'$. By definition we have $e \circ e' = e$ and $e \circ e' = e'$ hence $e = e'$.
-- $\forall a\in G$ , $a^{-1}$ is uniquely determined
-  - If $b$ and $c$ are both inverse for $a$ then we have $c = c\circ e=c\circ (a\circ b)=c\circ a\circ b=e\circ b=b$
-- $(a^{-1})^{-1} = a$
-- $(a\circ b)^{-1} = b^{-1}\circ a^{-1}$
-  - $c = (a \circ b)^{-1},(a\circ b)\circ c=e,a^{-1}\circ(a\circ b)\circ c=a^{-1}\circ e=a^{-1},b\circ c =a^{-1}, b^{-1}\circ b\circ c =b^{-1}\circ a^{-1}=c$
-- Expression is independent of how it is bracketed (Generalized associative law)
-  - Induction for $n$
-- Cancellation laws ($av=bv\implies a=b,va=vb\implies a=b$)
-  - Just prove $ax=b$ has unique solution by applying the inverse of $a$
+> [!question] The identity is unique
+> > [!tip] If there's another identity, denotes $e'$. By definition we have $e \circ e' = e$ and $e \circ e' = e'$ hence $e = e'$.
+
+> [!question] $\forall a\in G$ , $a^{-1}$ is uniquely determined
+> > [!tip] If $b$ and $c$ are both inverse for $a$ then we have $c = c\circ e=c\circ (a\circ b)=c\circ a\circ b=e\circ b=b$
+
+> [!success] $(a^{-1})^{-1} = a$
+
+> [!question] $(a\circ b)^{-1} = b^{-1}\circ a^{-1}$
+> > [!tip] $c = (a \circ b)^{-1},(a\circ b)\circ c=e$, $a^{-1}\circ(a\circ b)\circ c=a^{-1}\circ e=a^{-1}$,$b\circ c =a^{-1}, b^{-1}\circ b\circ c =b^{-1}\circ a^{-1}=c$
+
+> [!question] Expression is independent of how it is bracketed (Generalized associative law)
+> > [!tip] Induction for $n$
+
+> [!question] Cancellation laws ($av=bv\implies a=b,va=vb\implies a=b$)
+> > [!tip] Just prove $ax=b$ has unique solution by applying the inverse of $a$
 ### Examples
-- Any vector space is also an abelian group (Under addition)
-- Let $G_1,G_2,\dots,G_n$ be groups. Then $G_1\times G_2\times \cdots \times G_n$ with operation defined component-wise is a group called the **direct product** of $G_1,G_2,\dots,G_n$
-- $\mathbb{Z}/n\mathbb{Z}$ with $+$ is abelian group (prove later) 
-- The **trivial group** : $\{e\}$
+> [!example]
+> - Any vector space is also an abelian group (Under addition)
+> - Let $G_1,G_2,\dots,G_n$ be groups. Then $G_1\times G_2\times \cdots \times G_n$ with operation defined component-wise is a group called the **direct product** of $G_1,G_2,\dots,G_n$
+> - $\mathbb{Z}/n\mathbb{Z}$ with $+$ is abelian group (prove later) 
+> - The **trivial group** : $\{e\}$
 
 ### Notations
 - Denote $x^{-1}x^{-1}\cdots x^{-1}$ ($n$ terms) by $x^{-n}$
 - Abbr $a\circ b = ab$
 
 ## Order of Element
-- For a group $G$ an $x\in G$ define the **order** of $x$ be the smallest positive integer $n$ (denotes $|x|$) st $x^n=1$. If such $n$ does not exist then $x$ is said to be of infinite order
+> [!definition] Order
+> For a group $G$ an $x\in G$ define the **order** of $x$ be the smallest positive integer $n$ (denotes $|x|$) st $x^n=1$. If such $n$ does not exist then $x$ is said to be of infinite order
 
 ### Examples
-- An element of a group has order $1$ iff it's the identity
-- In the additive group $\mathbb{Z}/9\mathbb{Z}$ the element $\bar{6}$ has order $3$, the element $\bar{5}$ has order $9$
+> [!example]
+> - An element of a group has order $1$ iff it's the identity
+> - In the additive group $\mathbb{Z}/9\mathbb{Z}$ the element $\bar{6}$ has order $3$, the element $\bar{5}$ has order $9$
 
 ## Multiplication Table
-- Let $G= \{g_1, g_2, \cdots, g_n\}$ is finite group. The multiplication table is the $n\times n$ matrix whose $i,j$ entry is the group element $g_i \circ g_j$
+> [!definition] Multiplication Table
+>  Let $G= \{g_1, g_2, \cdots, g_n\}$ is finite group. The multiplication table is the $n\times n$ matrix whose $i,j$ entry is the group element $g_i \circ g_j$
 
 ## Dihedral Groups
-- For each $n\in\mathbb{Z}^+,n\geq 3$ let $D_{2n}$ be the symmetries of a regular $n\text{-gon}$
-- $|D_{2n}|=2n$ (Sometimes write $D_n$ where $n$ represents the number of vertices)
-- View as an abstract group $r$ for rotation and $s$ for reflection:
-  - $1,r,r^2,\dots,r^{n-1}$ are all distinct and $r^n=1$
-  - $|s|=2$
-  - $\forall i,s\not ={r^i}$
-  - $\forall 0\leq i,j\leq n-1,i\not ={j}, sr^i\not ={sr^j}$
-  - $rs=sr^{-1}$ ($D_{2n}$ is non-abelian)
-  - By induction we have $r^is=sr^{-i}$
+> [!definition] Dihedral Group
+> > [!info] Properties
+> > - For each $n\in\mathbb{Z}^+,n\geq 3$ let $D_{2n}$ be the symmetries of a regular $n\text{-gon}$
+> > - $|D_{2n}|=2n$ (Sometimes write $D_n$ where $n$ represents the number of vertices)
+> > - View as an abstract group $r$ for rotation and $s$ for reflection:
+> >   - $1,r,r^2,\dots,r^{n-1}$ are all distinct and $r^n=1$
+> >   - $|s|=2$
+> >   - $\forall i,s\not ={r^i}$
+> >   - $\forall 0\leq i,j\leq n-1,i\not ={j}, sr^i\not => {sr^j}$
+> >   - $rs=sr^{-1}$ ($D_{2n}$ is non-abelian)
+> >   - By induction we have $r^is=sr^{-i}$
 
 ## Generator
+> [!definition]
 A subset $S\in G$ where $\forall g\in G$ can be written as a (finite) product of $s\in S$ and $s^{-1}$ is called a set of **generators** of $G$
 $$G=\braket{S}$$
 

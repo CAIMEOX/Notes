@@ -13,4 +13,3 @@ At first you need to learn the basic knowledge about topological spaces. Focus o
 ## Euclidean Topology
 The euclidean topology on $\mathbb{R}$ is one of the central characters of topology.
 - View the [notes](euclidean.md)
-

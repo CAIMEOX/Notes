@@ -4,18 +4,18 @@
 Welcome to my GitHub repository, where I've gathered a collection of my notes and resources on **mathematics**, **physics**, **computer science**, **type theory** and more. This repository serves as a hub for my personal learning journey and a platform where I can share my knowledge with others who are passionate about these subjects. 
 
 ## What You'll Find:
-This repository is organized into folders and subfolders, making it easy to navigate and find the information you're looking for. Here's a breakdown of what you can expect to discover:
+ This repository is organized into folders and subfolders, making it easy to navigate and find the information you're looking for. Here's a breakdown of what you can expect to discover:
 
 ### Computer Science
 - [Agda](./cs/agda/intro.md)
-- [Ocaml](./cs/ocaml/types.md)
+- [Ocaml](Ocaml.md)
 - [Lambda Calculus](./cs/tt/lambda.md)
 - [Simple Type Theory](./cs/tt/type_theory.md)
 
 ### Mathematics
 - [Algebra](./math/algebra/intro.md)
 - [Category Theory](./math/cat/intro.md)
-- [Real analysis](./math/analysis/intro.md)
+- [Real analysis](math/analysis/intro.md)
 - [Topology](./math/topology/intro.md)
 
 ### Physics
@@ -23,11 +23,11 @@ This repository is organized into folders and subfolders, making it easy to navi
 - [Quantum Mechanics](TODO)
 
 ## Get Started
+- All the notes were written in Obsidian Markdown so you may need to install **obsidian** first.
 - Explore the folders and subfolders to find notes on specific topics.
 - All the topics have a `intro.md` which gives a brief introduction to the specific topic.
 - Check out the [Recommended Reading Lists](#recommended-reading-lists) section for resources to enhance your knowledge.
 - Feel free to contribute, suggest improvements, or ask questions.
-
 
 ## Recommended Reading Lists
 Many people ask me how to learn certain knowledge, and I always recommended one or two books to them. Here is my recommend list which covers textbooks, research papers, and online resources that you can find excellent materials in the domain you want to study. This note also refers to these book more or less.
@@ -86,6 +86,7 @@ This repository is an evolving project, and I welcome **contributions** from the
 
 ## Todo
 - Host this notes into git-pages with vitepress
+- Auto compile markdown into PDF files
 - Write `intro.md` for every topic
 
 ## License

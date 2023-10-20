@@ -118,7 +118,7 @@ Let's construct the product type:
 ### Generalize the recursor (Non-dependent recursor)
 Given $C:A\times B \to \mathscr{U}$ we can define a function $f:\prod_{(x:A\times B)} C(x)$ by $g:\prod_{(x:A)}\prod_{(y:B)}C((x,y))$ with defining equation $$f((x,y)):\equiv g(x)(y)$$
 
-Prove the propositional uniqueness principle: Every element of $A\times B$ is equal to a pair. $$\text{uniq}_{A\times B}:\prod_{x:A\times B} ((\text{pr}_1(x),\text{pr}_2(x)) =_{A\times B} x)$$ (Used the identity type. There is a reflexivity element $\text{refl}_x:x=_A x $ for any $x:A$) 
+Prove the propositional uniqueness principle: Every element of $A\times B$ is equal to a pair. $$\text{uniq}_{A\times B}:\prod_{x:A\times B} ((\text{pr}_1(x),\text{pr}_2(x)) =_{A\times B} x)$$ (Used the identity type. There is a reflexivity element $\text{refl}_x:x=_A x$ for any $x:A$) 
 
 So we can define: $$\text{uniq}_{A\times B}((a,b)):\equiv \text{refl}_{(a,b)}$$ 
 

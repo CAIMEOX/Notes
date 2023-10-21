@@ -417,3 +417,184 @@ There is no upper bound on finiteness.
 
 ## Second order typed lambda calculus
 ### Type abstraction and type application
+In church's $\lambda\to$ we only have abstraction and application on the term level.
+- We can construct terms depending on terms
+- First order abstraction, or first order dependency since the abstraction is over terms
+
+The system Second order typed lambda calculus or $\lambda2$ for short allows us to work with **terms depending on types**  (Polymorphic)
+
+> [!example] 
+> - (Polymorphic) Identity Function
+> $$\lambda\alpha:*.\lambda x:\alpha.x$$
+> The symbol $*$ denotes the type of all types
+> - Iteration (Apply two times)
+> $$D\equiv\lambda\alpha:*.\lambda f:\alpha\to\alpha.\lambda x:\alpha.f(f\space x)$$
+> - Composition
+> $$\circ\equiv\lambda\alpha:*.\lambda\beta:*.\lambda\gamma:*.\lambda f:\alpha\to\beta.\lambda g:\beta\to\gamma.\lambda x:\alpha.g(f\space x)$$
+
+### $\prod\text{-types}$
+In $\lambda2$ the type $\alpha$ has become a binding variable since it appears behind a $\lambda$:
+$$\lambda \alpha:*.\lambda\alpha.x:*\to(\alpha\to\alpha)$$
+Compare with 
+$$\lambda \beta:*.\lambda\beta.x:*\to(\beta\to\beta)$$
+
+This implies that two identical terms (left) have different types (right).
+In left we treat $\alpha$ and $\beta$ as bound variables but in the right hand sides they act as free variables.
+
+Therefore we introduce a new binder: **Type binder** / $\prod\text{-binder}$. We write $\prod\alpha:*.\alpha\to\alpha$ for the type of functions sending an arbitrary type $\alpha$ to a term of type $\alpha\to\alpha$ .
+$$\lambda \alpha:*.\lambda\alpha.x:\Pi\alpha:*.(\alpha\to\alpha)$$
+The type of composition function (The example above) is
+$$\Pi\alpha:*.\Pi\beta:*.\Pi\gamma:*.(\alpha\to\beta)\to(\beta\to\gamma)\to\alpha\to\gamma$$
+
+### Second order abstraction and application rules
+We allow second order declarations in the context such as $\alpha:*$.
+> [!definition] Second order abstraction rule
+> $$\frac{\Gamma,\alpha:*\vdash M:A}{\Gamma\vdash\lambda\alpha:*.M:\Pi\alpha:*.A}(\text{abst}_2)$$
+
+> [!definition] Second order application rule
+$$\frac{\Gamma\vdash M:\Pi\alpha:*.A\quad\Gamma\vdash B:*}{\Gamma\vdash MB:A[\alpha:=B]}(\text{appl}_2)$$
+
+### The system $\lambda2$
+The set $\mathbb{V}$ denotes the set of type variables ($\alpha,\beta,\gamma,\dots$)
+> [!definition] Abstract syntax for $\lambda2\text{-types}$
+> $$\mathbb{T}2=\mathbb{V}|(\mathbb{T}2\to\mathbb{T}2)|(\Pi\mathbb{V}:*.\mathbb{T}2)$$
+
+Secondly we extend our set of pre-typed $\lambda\text{-terms}$ to terms where also second order abstraction and application are allowed
+
+> [!definition] Second Order Pre-Typed $\lambda\text{-terms}$ ($\lambda2\text{-terms}$)
+> $$\Lambda_{\mathbb{T}2}=V|(\Lambda_{\mathbb{T}2}\Lambda_{\mathbb{T}2})|\Lambda_{\mathbb{T}2}\mathbb{T}2)|(\lambda V:\mathbb{T}2.\Lambda_{\mathbb{T}2})|(\lambda\mathbb{V}:*.\Lambda_{\mathbb{T}2})$$
+
+Now extend the notion of declaration by allowing second order declarations:
+> [!definition] Statement and Declaration
+> - A **statement** is either of the form $M:\alpha$ where $M\in\Lambda_{\mathbb{T}2}$ and $\sigma\in\mathbb{T}2$ or of the form $\sigma:*$ where $\sigma\in\mathbb{T}2$
+> - A **declaration** is a statement with a term variable or a type variable as subject
+
+The context is a bit complex here because all variables must be declared before they can be used (Guarantees that we know the types of all variables before we use them)
+> [!definition] $\lambda2\text{-context}$
+> - $\varnothing$ is a $\lambda2\text{-context}$
+> $\text{dom}(\varnothing)=()$ (Empty list)
+> - If $\Gamma$ is a $\lambda2\text{-context}$, $\alpha\in\mathbb{V}$ and $\alpha\not\in\text{dom}(\Gamma)$ then $\Gamma,\alpha:*$ is a $\lambda2\text{-context}$
+> $\text{dom}(\Gamma,\alpha:*)=(\text{dom}(\Gamma),\alpha)$, i.e. $\text{dom}(\Gamma)$ concatenated with $\alpha$
+> - If $\Gamma$ is a $\lambda2\text{-context}$ and let $\rho\in\mathbb{T}2$ st $\alpha\in\text{dom}(\Gamma)$ for all free type variables $\alpha$ occurring in $\rho$. If $x\not\in\text{dom}(\Gamma)$ then $\Gamma,x:\rho$ is a $\lambda2\text{-context}$
+> $\text{dom}(\Gamma,x:\rho)=(\text{dom}(\Gamma),x)$
+
+This definition entails that all term variables and type variables in a $\lambda2\text{-context}$ are mutually distinct.
+> [!example] 
+> - $\varnothing$ is a $\lambda2\text{-context}$ by Rule 1
+> - $\alpha:*$ is a $\lambda2\text{-context}$ by Rule 2
+> - Hence, $\alpha:*,x:\alpha\to\alpha$ is a $\lambda2\text{-context}$ by Rule 2
+
+> [!definition] Var-rule for $\lambda2$
+> $\Gamma\vdash x:\sigma$ if $\Gamma$ is a $\lambda2\text{-context}$ and $x:\sigma\in\Gamma$
+
+When will never be able to use the $\text{appl}_2$-rule because the second premiss of the rule is $\Gamma\vdash B:*$ which cant be established. It's no hard to repair this
+> [!definition] Formation Rule
+> $\Gamma\vdash B:*$ if $\Gamma$ is a $\lambda2\text{-context}$, $B\in\mathbb{T}2$ and all **free type variables** in $B$ are declared in $\Gamma$
+
+Now we translate the legality 
+> [!definition] Legal $\lambda2\text{-context}$
+> A term $M$ in $\Lambda_{\mathbb{T}2}$ is called **legal** if there exists a $\lambda2\text{-context }\Gamma$ and a type $\rho$ in $\mathbb{T}2$ st $\Gamma\vdash M:\rho$
+
+### Properties in $\lambda2$
+Adapt the definition of $\alpha\text{-conversion}$ 
+> [!definition]  $\alpha\text{-conversion}$ 
+> - (Renaming of term variable) $\lambda x:\alpha.M=_\alpha\lambda y:\sigma.M^{x\to y}$ if $y\not\in FV(M)$ and $y$ does not occur as a **binding variable** in $M$
+> - (Renaming of type variable)
+> 	- $\lambda\alpha:*.M=_\alpha\lambda\beta:*.M[\alpha:=\beta$ if $\beta$ dose not occur in $M$
+> 	-  $\Pi\alpha:*.M=_\alpha\Pi\beta:*.M[\alpha:=\beta$ if $\beta$ dose not occur in $M$
+> - Compatibility, Reflexivity, Symmetry and Transitivity were the same as above
+
+The one-step reduction is similar
+> [!definition] One-step $\beta\text{-reduction}$ 
+> - (Basis, first order) $(\lambda x:\sigma.M)N\to_\beta M[x:=N]$
+> - (Basis, second order) $(\lambda\alpha:*.M)T\to_\beta M[\alpha:=T]$
+> - (Compatibility) As above
+
+Most lemmas in $\lambda\to$ also holds for $\lambda2$ besides the Permutation Lemma. It's no longer allowed to arbitrarily permute the declarations in a context $\Gamma$. A declaration occurring  later in that context may **depend** on an earlier one.
+### Conclusion
+> [!info] History
+> The second order typed lambda calculus was first defined by J.-Y Girard where it was called 'System F'
+
+Polymorphic types are also called **impredicative types**. A famous example of impredicativity occurs in Naive Set Theory , where we tried to construct the Set of all sets (leads to the Russell Paradox). Impredicativity was seen as  a source of **inconsistency**.
+
+Luckily, the polymorphic types is consistent if we view the types as propositional formulas under the so-called propositions-as-types isomorphic and we can prove that there are empty types: (types $\sigma$ for which there is no closed term $M:\sigma$)
+
+## Type dependent on types
+### Type constructors
+It's a natural wish to construct generalized types. 
+$$\lambda\alpha:*:\alpha\to\alpha$$
+This is itself not a  type but a function with a type as a value, therefore called a type constructor.
+Then we can write down the type notation (next to $*$ , a new super-type: $*\to*$):
+$$\lambda:*.\alpha\to\alpha:*\to*$$
+Similarly we may conclude:
+$$\lambda:*.\lambda\beta:*.\alpha\to\beta:*\to(*\to*)$$
+The extensions described above can be summarized as the addition of **types depending on types**, which will lead to the system $\lambda\underline{\omega}$.
+
+The super type we have met above, consisting of $*$ alone and of $*\text{-symbol}$ with arrows in between are called **kinds**.
+$$\mathbb{K}=*|(\mathbb{K}\to\mathbb{K})$$
+The type of all kinds is denoted $\square$ which is so to speak the one and only 'super-super-type'. If $\kappa$ is a kind then often each $M$ 'of type'  $\kappa$ is called a type constructor. If a constructor is not a type it is a **proper constructor**.
+
+> [!definition]
+> - If $\kappa:\square$ and $M:\kappa$ is a constructor. If $\kappa\not\equiv *$ then $M$ is a proper constructor
+> - The set of sorts is $\{*,\square\}$
+
+> [!info] Abuse of notation
+> symbol $s$ as meta-variable for a sort (so $s$ represents either $*$ or $\square$)
+
+Now we have four levels in our syntax:
+> [!definition] Levels
+> - Level-1: terms
+> - Level-2: types and proper constructors
+> - Level-3: kinds
+> - Level-4: solely of $\square$
+
+Gluing things together w have **judgement chains** such as $t:\sigma:*\to*:\square$
+When $\sigma$ is a proper constructor, then it cannot be inhabited so we have to omit the $t$ from the chain.
+### Sort-rule and var-rule in $\lambda\underline{\omega}$
+Note that $\lambda\underline{\omega}$ is an extension of $\lambda\to$ (plus types-depending-on-types) instead of $\lambda2$.
+
+> [!definition] Sort-rule
+> $$\varnothing\vdash*:\square$$
+
+We combine derivability of context declarations with the **construction of the context proper.** Our new approach is that we only extend a context with a declaration $x:A$ if the type $A$ itself is already **permissible**.
+> [!definition] Var-rule
+> $$\frac{\Gamma\vdash A:s}{\Gamma,x:A\vdash x:A} \text{if }x\not\in\Gamma$$ 
+
+Notice that the letter $x$ may hence stand for either a term variable or a type variable. (The Var-rule plays a double-role) The restriction $x\not\in\Gamma$ guarantees that variable $x$ is fresh, i.e. $x$ does not occur in $\Gamma$.
+
+> [!example]
+> |$s$|$s\equiv\square$|$s\equiv*$|
+> |--|--|--|
+> |$A:s$|$*:\square$ / $*\to*:\square$|$\alpha:*$ / $\alpha\to\beta:*$|
+> |$x:A$|$\alpha:*$ / $\beta:*\to*$|$x:\alpha$ / $y:\alpha\to\beta$|
+
+ ### The weakening rule in $\lambda\underline{\omega}$
+ Allow us to weaken the context of a judgement by adding new declarations.
+ > [!definition] Weakening rule
+ > $$\frac{\Gamma\vdash A:B\quad\Gamma\vdash C:s}{\Gamma,x:C\vdash A:B} \text{if}x\not\in\Gamma$$
+ 
+ Assuming that we have derived the judgement $\Gamma\vdash A: B$ then we may weaken the context $\Gamma$ by adding an arbitrary declaration at the end.
+> [!definition] Formation rule
+> $$\frac{\Gamma\vdash A:s\quad\Gamma\vdash B:s}{\Gamma\vdash A\to B:s}$$
+
+(There are no terms depending on types in $\lambda\underline{\omega}$ which has as a consequence that there are no $\Pi\text{-types}$ in $\lambda\underline{\omega}$)
+
+### Application and abstraction rules in $\lambda\underline{\omega}$
+> [!definition] Application rule
+> $$\frac{\Gamma\vdash M:A\to B\quad\Gamma\vdash N:A}{\Gamma\vdash MN:B}$$
+
+We must be sure that $A\to B$ is a well-formed type.
+> [!definition] Abstraction rule
+> $$\frac{\Gamma,x:A\vdash M:B\quad\Gamma\vdash A\to B:s}{\Gamma\vdash\lambda x:A.M:A\to B}$$
+
+### The conversion rule
+Allows to replace a type by a well-formed convertible type.
+> [!definition] Conversion rule
+> $$\frac{\Gamma\vdash A:B\quad\Gamma\vdash B':s}{\Gamma\vdash A:B'}\text{if }B=_\beta B'$$
+
+The first premiss implies that $B$ is well-formed while the second one guarantees that $B'$ is well-formed.
+We allow that the second premiss in the conversion rule is suppressed in a **shortened derivation** (Many steps are not very interesting, we allow shortened derivation).
+### Properties of $\lambda\underline{\omega}$
+> [!lemma] Uniqueness of Types up to Conversion
+> If $\Gamma\vdash A:B_1$ and $\Gamma\vdash A:B_2$ then $B_1=_\beta B_2$
+

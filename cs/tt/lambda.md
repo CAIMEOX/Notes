@@ -598,3 +598,19 @@ We allow that the second premiss in the conversion rule is suppressed in a **sho
 > [!lemma] Uniqueness of Types up to Conversion
 > If $\Gamma\vdash A:B_1$ and $\Gamma\vdash A:B_2$ then $B_1=_\beta B_2$
 
+## Types dependent on terms
+In previous section we have following dependencies:
+- Terms depending on terms ($\lambda\to$)
+- Terms depending on terms and types ($\lambda2$)
+- Terms depending on terms and types depending on types ($\lambda\underline{\omega}$)
+There is one extension missing:
+- Terms depending on terms and types depending on terms ($\lambda P$)
+
+A type depending on a term has the general format:
+$$\lambda x:A.M$$
+where $M$ is a type and $x$ a term-variable ($A$ must be a type). This is actually a **type-valued function / type constructor**.
+
+> [!example]
+> Let $S_n=\mathbb{Z}/n\mathbb{Z}$ be a set for each $n:\mathbb{N}$ then those sets can be considered as a type. Then $\lambda n:\mathbb{N}.S_n$ is also a type (constructor) depending on term $n$. We can also say $\lambda n:\mathbb{N}.S_n$ is a **family of types** or an **indexed type** (indexed by $n:\mathbb{N}$)
+
+   

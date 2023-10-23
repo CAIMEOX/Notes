@@ -10,6 +10,7 @@ Welcome to my GitHub repository, where I've gathered a collection of my notes an
 - [Agda](./cs/agda/intro.md)
 - [Ocaml](Ocaml.md)
 - [Lambda Calculus](./cs/tt/lambda.md)
+- [Operating System (Rust)](cs/os/intro.md)
 - [Simple Type Theory](./cs/tt/type_theory.md)
 
 ### Mathematics

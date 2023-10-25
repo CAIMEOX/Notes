@@ -14,7 +14,7 @@ Sequences in $\mathbb{K}$ are called **number sequence**. The $\mathbb{K}\text{-
 
 ### Properties
 Let $x_n$ be a sequence in $X$ and $E$ a property. 
-- $E$ holds for **almost all** terms iff $\exist m\in\mathbb{N}$ st $E(x_n)$ is true $\forall n\geq m$
+- $E$ holds for **almost all** terms iff $\exists m\in\mathbb{N}$ st $E(x_n)$ is true $\forall n\geq m$
 - $E$ is true for **infinity many** terms iff $N\subseteq \mathbb{N}\land |N|=\infty$ and $E(x_n)$ holds $\forall n\in N$
 
 ## Metric Space
@@ -33,7 +33,7 @@ $$\mathbb{\bar{B}}(a,r):=\mathbb{\bar{B}}_X(a,r):=\{x\in X;d(a,x)\leq r\}$$
 is the **closed ball**.
 
 ## Neighborhood
-- A subset $U$ of a metric space $X$ is called a neighborhood of $a\in X$ if $\exist r>0$ st $\mathbb{B}(a,r)\subseteq U$
+- A subset $U$ of a metric space $X$ is called a neighborhood of $a\in X$ if $\exists r>0$ st $\mathbb{B}(a,r)\subseteq U$
 - The set of all neighborhoods of the point $a$ is denoted $\mathcal{U}(a)$
 $$\mathcal{U}(a):=\mathcal{U}_X(a)\subseteq\mathcal{P}(X)$$
 
@@ -49,8 +49,8 @@ $a\in X$ is a **cluster point** of $(x_n)$ if every neighborhood of $a$ contains
 **Propositions** :
 The following are equivalent:
 - $a$ is a cluster point of $(x_n)$
-- $\forall U\in \mathcal{U}(a)$ and $m\in \mathbb{N}$, there $\exist n\geq m$ st $x_n\in U$
-- $\forall \epsilon>0,m\in\mathbb{N},\exist n\geq m$ st $x_n\in \mathbb{B}(a,\epsilon)$
+- $\forall U\in \mathcal{U}(a)$ and $m\in \mathbb{N}$, there $\exists n\geq m$ st $x_n\in U$
+- $\forall \epsilon>0,m\in\mathbb{N},\exists n\geq m$ st $x_n\in \mathbb{B}(a,\epsilon)$
 
 ## Convergence
 A sequence $(x_n)$ **converges** with **limit** $a$ if $\forall U\in\mathcal{U}(a)$ contains **almost all** terms (Geometric intuition : The distance from $x_n$ to $a$ becomes **arbitrarily small**) of the sequence.
@@ -60,11 +60,11 @@ $(x_n)$ converges to $a$ as $n$ goes to $\infty$. A sequence which is not conver
 **Propositions** :
 The following are equivalent:
 - $\lim x_n=a$
-- $\forall U\in \mathcal{U}(a),\exist N:=N(U)$ st $\forall n\geq N,x_n\in U$
-- $\forall \epsilon>0,\exist N:=N(\epsilon)$ st $\forall n\geq N,x_n\in\mathbb{B}(a,\epsilon)$
+- $\forall U\in \mathcal{U}(a),\exists N:=N(U)$ st $\forall n\geq N,x_n\in U$
+- $\forall \epsilon>0,\exists N:=N(\epsilon)$ st $\forall n\geq N,x_n\in\mathbb{B}(a,\epsilon)$
 
 ## Bounded Sets
-A subset $Y\subseteq X$ is called $d\text{-bounded}$ or **bounded** in $X$ (with respect to the metric $d$) if $\exist M>0$ st $\forall x,y\in Y,d(x,y)\leq M$
+A subset $Y\subseteq X$ is called $d\text{-bounded}$ or **bounded** in $X$ (with respect to the metric $d$) if $\exists M>0$ st $\forall x,y\in Y,d(x,y)\leq M$
 $$\text{diam}(Y):=\text{sup}_{x,y\in Y} d(x,y)$$
 
 - A sequence $(x_n)$ is bounded if its image $\{x_n;n\in\mathbb{N}\}$ is bounded.
@@ -74,10 +74,10 @@ $$\text{diam}(Y):=\text{sup}_{x,y\in Y} d(x,y)$$
 ## Subsequence
 Let $\phi=(x_n)$ be a sequence in $X$ and $\sigma:\mathbb{N}\to\mathbb{N}$ a **strictly increasing** function. Then $\phi\circ\sigma\in X^\mathbb{N}$ is called a subsequence of $\phi$
 
-- A point $a$ us a cluster point of a sequence $(x_n)$ iff $\exist (x_{n_k})_{k\in\mathbb{N}}$ of $(x_n)$ which converges to $a$
+- A point $a$ us a cluster point of a sequence $(x_n)$ iff $\exists (x_{n_k})_{k\in\mathbb{N}}$ of $(x_n)$ which converges to $a$
 
 ## Null Sequence
-A sequence $(x_n)$ in $\mathbb{K}$ is called a **null sequence** if it converges to zero. That is, $\forall \epsilon >0,\exist N\in\mathbb{N}$ st $\forall n\geq N,|x_n|<\epsilon$.
+A sequence $(x_n)$ in $\mathbb{K}$ is called a **null sequence** if it converges to zero. That is, $\forall \epsilon >0,\exists N\in\mathbb{N}$ st $\forall n\geq N,|x_n|<\epsilon$.
 
 The set of all null sequences in $\mathbb{K}$ is denoted:
 $$c_0:=c_0(\mathbb{K}):=\{(x_n)\in s;\lim x_n=0\}$$
@@ -120,7 +120,7 @@ $$\lim_{n\to\infty} n^{\frac{1}{n}}=1$$
 **Proof**:
 
 
-Let $\epsilon>0$ and the sequence $x_n=\dfrac{n}{(1+\epsilon)^n}$ is a null sequence. Thus $\exist N$ st
+Let $\epsilon>0$ and the sequence $x_n=\dfrac{n}{(1+\epsilon)^n}$ is a null sequence. Thus $\exists N$ st
 $$\forall n\geq N ,x_n<1$$
 That is
 $$1\leq n\leq (1+\epsilon)^n$$
@@ -132,7 +132,7 @@ $$1\leq n^{\frac{1}{n}}\leq 1+\epsilon$$
 For all $a>0, \lim_{n\to\infty}a^{\frac{1}{n}}=1$
 
 **Proof**:
-By **Archimedean Property** of $\mathbb{R}$, $\exist N\in\mathbb{N}$ st $\forall n\geq N, \frac{1}{n}<a<n$
+By **Archimedean Property** of $\mathbb{R}$, $\exists N\in\mathbb{N}$ st $\forall n\geq N, \frac{1}{n}<a<n$
 $$\frac{1}{n^{\frac{1}{n}}} = \left(\frac{1}{n}\right)^{\frac{1}{n}}\leq a^{\frac{1}{n}}\leq n^{\frac{1}{n}}$$
 Hence the claim is true.
 

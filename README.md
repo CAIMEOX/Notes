@@ -1,4 +1,7 @@
 # Meo Notes
+> The repository was archived.
+> Now all notes will be updated in [The Rabbit Hole](https://github.com/CAIMEOX/caimeox.github.io)
+
 > Knowledge is free!
 
 Welcome to my GitHub repository, where I've gathered a collection of my notes and resources on **mathematics**, **physics**, **computer science**, **type theory** and more. This repository serves as a hub for my personal learning journey and a platform where I can share my knowledge with others who are passionate about these subjects. 
